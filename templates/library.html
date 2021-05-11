@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for link in list%}
+<div>
+    <a href={{link}}>{{link}}</a><br>
+</div>
+{% endfor %}
+{% endblock %}
