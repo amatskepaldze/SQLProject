@@ -7,24 +7,46 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
-    <title>{{title}}</title>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">Наше приложение</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar">
+        <a class="navbar-brand" href="/">Talent_Tinder</a>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/messages">Сообщения<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/profile">Профиль <span class="sr-only">(current)</span></a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about_us">О нас</a>
+                </li>
+            </ul>
+        </div>
         {% if current_user.is_authenticated %}
-        <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+            <a class="navbar-brand" href="/logout">Выйти</a>
         {% else %}
-        <p>
-            <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
-            <a class="btn btn-success" href="/login">Войти</a>
-        </p>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a type="button" class="btn btn-primary register" href="/register">Зарегистрироваться</a>
+                <a type="button" class="btn btn-success login" href="/login">Войти</a>
+            </div>
         {% endif %}
     </nav>
 </header>
 <!-- Begin page content -->
 <main role="main" class="container">
+    <img src="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" alt="" width="100" height="100 ">
+
+    <!--<span class="progress3" style="position: absolute;left:10%;top:24%"><img
+            src="{{ url_for ('static', filename = 'image/icons8-скрипичный-ключ-100.png') }}"></img></span> -->
+
     {% block content %}{% endblock %}
 </main>
 </body>
