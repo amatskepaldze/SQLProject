@@ -9,10 +9,10 @@
         Автор - {{ item.user.name }}, Дата написания - {{ item.created_date }}
         <strong>Отозвались {{ item.reacted_count }}</strong>
         {% if current_user.is_authenticated and current_user == item.user %}
-            <a href="/news/{{ item.id }}" class="btn btn-primary register">
+            <a href="/news/edit/{{ item.id }}" class="btn btn-primary register">
                 Изменить
             </a>
-            <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
+            <a href="/news/delete/{{ item.id }}" class="btn btn-danger">
                 Удалить
             </a>
         {% else %}
