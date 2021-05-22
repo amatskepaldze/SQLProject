@@ -1,25 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h3>{{ item.title }}</h3>
-    <selector class="lead" style="font-size: 115%">
-        {{ item.content }}
-    </selector>
-    <div>
-        Автор - {{ item.user.name }}, Дата написания - {{ item.created_date }}
-        <strong>Отозвались {{ item.reacted_count }}</strong>
-        {% if current_user.is_authenticated and current_user == item.user %}
-            <a href="/news/edit/{{ item.id }}" class="btn btn-primary register">
-                Изменить
-            </a>
-            <a href="/news/delete/{{ item.id }}" class="btn btn-danger">
-                Удалить
-            </a>
-        {% else %}
-            <a href="/response/{{ item.id }}" class="btn btn-primary register">
-                Отозватся
-            </a>
-        {% endif %}
-    </div>
+<h3>{{ item.title }}</h3>
+<selector class="lead" style="font-size: 115%">
+    {{ item.content }}
+</selector>
+<div>
+    Автор - {{ item.user.name }}, Дата написания - {{ item.created_date }}
+    <strong>Отозвались {{ item.reacted_count }}</strong>
+    {% if current_user.is_authenticated and current_user == item.user %}
+    <a href="/news/edit/{{ item.id }}" class="btn btn-primary register">
+        Изменить
+    </a>
+    <a href="/news/delete/{{ item.id }}" class="btn btn-danger">
+        Удалить
+    </a>
+    {% else %}
+    <a href="/response/{{ item.id }}" class="btn btn-primary register">
+        Отозватся
+    </a>
+    {% endif %}
+</div>
+{% if current_user.is_authenticated%}
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.comment.label }}<br>
+        {{ form.comment(class="form-control") }}<br>
+        {% for error in form.comment.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+{% endif %}
+
+{% for comment in comments %}
+<p></p>
+{% endfor %}
+
 
 {% endblock %}
