@@ -73,6 +73,7 @@ def news(id):
         db_sess.commit()
         return redirect(f'/news/{id}')
     comments = ns.get_comments(privat=current_user == ns.user)
+    print(comments[0].user.name)
     return render_template('news.html', title=ns.title, item=ns, comments=comments, form=form)
 
 

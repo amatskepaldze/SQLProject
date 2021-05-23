@@ -15,7 +15,7 @@ class Comments(SqlAlchemyBase, SerializerMixin):
     created_data = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.now)
     is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=False, nullable=True)
 
-    comment = sqlalchemy.Column(sqlalchemy.String)
+    comment = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
     user = orm.relation('User')
     news = orm.relation('News')

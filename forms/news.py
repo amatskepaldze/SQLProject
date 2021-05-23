@@ -12,6 +12,6 @@ class NewsForm(FlaskForm):
 
 
 class Response(FlaskForm):
-    comment = TextAreaField("Коментарий")
+    comment = TextAreaField("Коментарий", validators=[DataRequired()])
     is_private = BooleanField("Лично автору")
     submit = SubmitField('Отправить')
