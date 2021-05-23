@@ -25,3 +25,13 @@ class EditProfile(FlaskForm):
     name = StringField('Имя пользователя')
     about = TextAreaField("О себе")
     submit = SubmitField('Изменить')
+
+
+class EditPasswordEmail(FlaskForm):
+    email = EmailField('Старая почта', validators=[DataRequired()])
+    password = PasswordField('Старый пароль', validators=[DataRequired()])
+
+    new_email = EmailField('Старая почта', validators=[DataRequired()])
+    new_password = PasswordField('Новый пароль', validators=[DataRequired()])
+    new_password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
+    submit = SubmitField('Редактировать')

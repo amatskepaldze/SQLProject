@@ -6,31 +6,11 @@
     {% if current_user.is_authenticated %}
     {% endif %}
 </nav>
-
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <H3>
-        {{ form.name.label }}<br>
-        {{ form.name(class="form-control") }}<br>
-        {% for error in form.name.errors %}
-        <p class="alert alert-danger" role="alert">
-            {{ error }}
-        </p>
-        {% endfor %}
-    </H3>
-    </p>
-    <p>
-    <h4>
-        {{ form.about.label }}<br>
-        {{ form.about(class="form-control") }}<br>
-        {% for error in form.about.errors %}
-        <p class="alert alert-danger" role="alert">
-            {{ error }}
-        </p>
-        {% endfor %}
-    </h4>
-    </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{ message }}
-</form>
+<h2>{{user.name}}</h2>
+<selector class="lead" style="font-size: 115%">{{user.about}}</selector><br><br>
+{% if current_user.is_authenticated and current_user == user %}
+<a href="/user/edit" class="btn btn-primary register">
+    Редактировать профиль
+</a>
+{% endif %}
 {% endblock %}

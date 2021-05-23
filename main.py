@@ -8,13 +8,16 @@ from flask_restful import abort, Api
 from data.db_session import global_init, create_session
 from data.news import News
 from data.users import User
-from forms.news import NewsForm, Response
-from forms.user import LoginForm, RegisterForm, EditProfile
-from blueprint_news import blueprint_news
+from forms.news import Response
+from forms.user import LoginForm, RegisterForm
+from blueprints.news import blueprint_news
+from blueprints.users import blueprint_users
+from blueprints.comments import blueprint_comments
 
 app = Flask(__name__)
 
 app.register_blueprint(blueprint_news, url_prefix='/news')
+app.register_blueprint(blueprint_users, url_prefix='/user')
 
 app.config['SECRET_KEY'] = '42'
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
@@ -63,28 +66,6 @@ def messages():
     else:
         ns = db_sess.query(News).filter(News.is_private != True)
     return render_template("messages.html", news=ns)
-
-
-@app.route('/profile', methods=['GET', 'POST'])
-@login_required
-def profile():
-    form = EditProfile()
-    db_sess = create_session()
-    if form.validate_on_submit():
-        same_name = db_sess.query(User).filter(User.name == form.name.data).first()
-        if same_name and same_name.name != current_user.name:
-            return render_template('profile.html', form=form,
-                                   message="Такой пользователь уже есть")
-
-        user = db_sess.query(User).filter(User.name == current_user.name).first()
-        user.name = form.name.data
-        user.about = form.about.data
-        db_sess.commit()
-        return redirect('/profile')
-    form.name.data = current_user.name
-    form.about.data = current_user.about
-
-    return render_template('profile.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
