@@ -39,8 +39,14 @@
 {% endif %}
 
 {% for comment in comments %}
-<p></p>
-{% endfor %}
+<div class="col-md6 border rounded" style="margin: 1.3%; padding: 10px">
+    <h2>{{ comment.user.name }}</h2>
+    <div style="font-size: 115%">
+        {{ comment.comment }}
+    </div>
+    <small>Дата написания - {{ item.created_date }}</small>
+</div>
+</div>{% endfor %}
 
 
 {% endblock %}

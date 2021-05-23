@@ -9,6 +9,8 @@ from flask_restful import abort, Api
 from data.db_session import global_init, create_session
 from data.news import News
 from data.users import User
+from data.comments import Comments
+
 from forms.news import NewsForm, Response
 from forms.user import LoginForm, RegisterForm, EditProfile
 
@@ -53,7 +55,7 @@ def add_news():
     return render_template('edit_news.html', title='Добавление новости', form=form)
 
 
-@blueprint_news.route('/<int:id>')  # просмотр новости
+@blueprint_news.route('/<int:id>', methods=['GET', 'POST'])  # просмотр новости
 def news(id):
     db_sess = create_session()
     ns = db_sess.query(News).filter(News.id == id).first()
@@ -61,7 +63,17 @@ def news(id):
         return not_found_news()
     if ns.is_private and ns.user_id != current_user.id:
         return abort(405)
-    return render_template('news.html', title=ns.title, item=ns)
+
+    form = Response()
+    if form.validate_on_submit():
+        comment = Comments(comment=form.comment.data, news_id=ns.id, is_private=form.is_private.data)
+        current_user.comments.append(comment)
+        ns.comments.append(comment)
+        comment.post()
+        db_sess.commit()
+        return redirect(f'/news/{id}')
+    comments = ns.get_comments(privat=current_user == ns.user)
+    return render_template('news.html', title=ns.title, item=ns, comments=comments, form=form)
 
 
 @blueprint_news.route('/edit/<int:id>', methods=['GET', 'POST'])  # изменение новости
