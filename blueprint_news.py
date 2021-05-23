@@ -25,12 +25,14 @@ def not_found_news(message='такой новости нет'):
     return render_template('nothing.html', message=message)
 
 
-@blueprint_news.route('/delete/<int:id>', methods=['GET', 'POST'])  # удаление новости
+@blueprint_news.route('/delete/<int:id>', methods=['GET'])  # удаление новости
 @login_required
 def news_delete(id):
     db_sess = create_session()
-    ns = db_sess.query(News).filter(News.id == id, News.user == current_user).first()
+    ns = db_sess.query(News).filter(News.id == id).first()
     if ns:
+        if current_user.id != ns.user_id:
+            abort(405)
         db_sess.delete(ns)
         db_sess.commit()
     else:
@@ -73,7 +75,6 @@ def news(id):
         db_sess.commit()
         return redirect(f'/news/{id}')
     comments = ns.get_comments(privat=current_user == ns.user)
-    print(comments[0].user.name)
     return render_template('news.html', title=ns.title, item=ns, comments=comments, form=form)
 
 

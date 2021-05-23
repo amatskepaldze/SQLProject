@@ -23,6 +23,7 @@ api = Api(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 
 @login_manager.user_loader
@@ -44,7 +45,9 @@ def not_found(error):
 @app.route("/")
 def index():
     db_sess = create_session()
-    if current_user.is_authenticated:
+    if request.args.get('my') and current_user.is_authenticated:
+        news = db_sess.query(News).filter((News.user_id == current_user.id))
+    elif current_user.is_authenticated:
         news = db_sess.query(News).filter((News.user == current_user) | (News.is_private != True))
     else:
         news = db_sess.query(News).filter(News.is_private != True)
@@ -109,7 +112,8 @@ def reqister():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/login')
+        login_user(user)
+        return redirect('/')
     return render_template('register.html', title='Регистрация', form=form)
 
 
