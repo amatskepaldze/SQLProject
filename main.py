@@ -62,15 +62,19 @@ def messages():
     return render_template("messages.html", news=ns)
 
 
-@app.route('/profile', methods=['GET', 'POST'])
-@login_required
+@app.route('/profile')
 def profile():
+    return  render_template('profile.html')
+
+@app.route('/profile/edit', methods=['GET', 'POST'])
+@login_required
+def profile_edit():
     form = EditProfile()
     db_sess = create_session()
     if form.validate_on_submit():
         same_name = db_sess.query(User).filter(User.name == form.name.data).first()
         if same_name and same_name.name != current_user.name:
-            return render_template('profile.html', form=form,
+            return render_template('edit_profile.html', form=form,
                                    message="Такой пользователь уже есть")
 
         user = db_sess.query(User).filter(User.name == current_user.name).first()
@@ -81,7 +85,7 @@ def profile():
     form.name.data = current_user.name
     form.about.data = current_user.about
 
-    return render_template('profile.html', form=form)
+    return render_template('edit_profile.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])

@@ -1,36 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<nav style="margin: 1%">
-    <a class="navbar-brand" style="font-size: 170%; font-weight: bold">Профиль</a>
-    {% if current_user.is_authenticated %}
-    {% endif %}
-</nav>
+    <nav style="margin: 1%">
+        <a class="navbar-brand" style="font-size: 170%; font-weight: bold">Профиль</a>
+        {% if current_user.is_authenticated %}
+        {% endif %}
+    </nav>
 
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <H3>
-        {{ form.name.label }}<br>
-        {{ form.name(class="form-control") }}<br>
-        {% for error in form.name.errors %}
-        <p class="alert alert-danger" role="alert">
-            {{ error }}
-        </p>
-        {% endfor %}
-    </H3>
-    </p>
     <p>
-    <h4>
-        {{ form.about.label }}<br>
-        {{ form.about(class="form-control") }}<br>
-        {% for error in form.about.errors %}
-        <p class="alert alert-danger" role="alert">
-            {{ error }}
-        </p>
-        {% endfor %}
-    </h4>
+    <H3> Имя пользователя </H3>
+    <H4>{{ current_user.name }} </H4>
     </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{ message }}
-</form>
+
+    <p>
+    <H3> Логин </H3>
+    <H4>{{ current_user.email }} </H4>
+    </p>
+
+    <p>
+    <H3> Доп. информация о пользователе </H3>
+    <H4>{{ current_user.about }} </H4>
+    </p>
+
+    <a href="/profile/edit" class="btn btn-primary register">
+        Редактировать
+    </a>
 {% endblock %}
