@@ -66,9 +66,9 @@ def news(id):
 
     form = Response()
     if form.validate_on_submit():
-        comment = Comments(comment=form.comment.data, news_id=ns.id, is_private=form.is_private.data)
-        current_user.comments.append(comment)
-        ns.comments.append(comment)
+        comment = Comments(comment=form.comment.data, news_id=ns.id, user_id=current_user.id,
+                           is_private=form.is_private.data, news=ns)
+        db_sess.add(comment)
         comment.post()
         db_sess.commit()
         return redirect(f'/news/{id}')
