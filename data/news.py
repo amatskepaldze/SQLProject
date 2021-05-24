@@ -1,7 +1,7 @@
 import datetime
 import sqlalchemy
 from sqlalchemy import orm
-from .db_session import SqlAlchemyBase
+from data.db_session import SqlAlchemyBase
 from sqlalchemy_serializer import SerializerMixin
 
 
@@ -21,7 +21,7 @@ class News(SqlAlchemyBase, SerializerMixin):
     user = orm.relation('User')
     comments = orm.relation('Comments', back_populates='news')
 
-    def short_content(self, length=50):
+    def short_content(self, length=60):
         return self.content.rjust(length, ' ')[:length]
 
     def __repr__(self):
