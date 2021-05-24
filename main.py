@@ -120,21 +120,6 @@ def logout():
     return redirect('/')
 
 
-@app.route('/response/<int:id>', methods=['GET', 'POST'])
-@login_required
-def response(id):
-    form = Response()
-    db_sess = create_session()
-    news = db_sess.query(News).filter(News.id == id, News.is_private != True).first()
-    if not news:
-        abort(404)
-
-    if form.validate_on_submit():
-        #  дописать
-        return redirect('/')  # если хочешь напиши все успешно
-    return render_template('response.html', title='Отозваться', form=form, news_title=news.title)
-
-
 def main():
     print('hello')
     global_init("db/blogs.db")

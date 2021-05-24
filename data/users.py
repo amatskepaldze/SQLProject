@@ -32,5 +32,8 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     def check_password(self, password):
         return check_password_hash(self.hashed_password, password)
 
+    def get_news(self, privat=False):
+        return sorted(filter(lambda x: (not x.is_private or privat), self.news), key=lambda x: x.created_date)
+
     def __repr__(self):
         return f"<{self.__tablename__}>\t{self.name}\t{self.email}"

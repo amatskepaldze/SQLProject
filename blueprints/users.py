@@ -17,7 +17,8 @@ from forms.user import LoginForm, RegisterForm, EditProfile, EditPasswordEmail
 blueprint_users = Blueprint(
     'blueprint_users',
     __name__,
-    template_folder='templates'
+    template_folder='templates',
+    static_folder='static'
 )
 
 
@@ -27,8 +28,8 @@ def not_found_users(message='такого пользователя не суще
 
 @blueprint_users.route('/')
 @login_required
-def profile():
-    return render_template('profile.html', user=current_user)
+def my_profile():
+    return redirect(f'/user/{current_user.id}')
 
 
 @blueprint_users.route('/<id>')
@@ -40,7 +41,7 @@ def profile(id):
         user = db_sess.query(User).filter(User.name == id).first()
     if not user:
         return not_found_users()
-    return render_template('profile.html', user=user)
+    return render_template('profile.html', user=user, news=user.get_news(privat=current_user == user))
 
 
 @blueprint_users.route('/edit', methods=['GET', 'POST'])
@@ -71,22 +72,22 @@ def redact():
     form = EditPasswordEmail()
     if form.validate_on_submit():
         db_sess = create_session()
-        checked_user = db_sess.query(User).filter(User.email == form.email.data).first()
-        if not checked_user or not checked_user.check_password(form.password.data) or checked_user != current_user:
-            return render_template('login.html',
+        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        if not user or not user.check_password(form.password.data) or user != current_user:
+            return render_template('redact_profile.html',
                                    message="Неправильный логин или пароль",
                                    form=form)
         if form.new_password.data != form.new_password_again.data:
-            return render_template('register.html', title='Регистрация',
+            return render_template('redact_profile.html', title='Регистрация',
                                    form=form,
                                    message="Пароли не совпадают")
         if db_sess.query(User).filter(
                 User.email == form.new_email.data).first() and current_user.email != form.new_email.data:
-            return render_template('register.html', title='Регистрация',
+            return render_template('redact_profile.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
-        current_user.email = form.new_email.data
-        current_user.set_password(form.new_password.data)
+        user.email = form.new_email.data
+        user.set_password(form.new_password.data)
         db_sess.commit()
         return redirect('/')
-    return render_template('register.html', title='Регистрация', form=form)
+    return render_template('redact_profile.html', title='Регистрация', form=form)

@@ -17,7 +17,8 @@ from forms.user import LoginForm, RegisterForm, EditProfile
 blueprint_news = Blueprint(
     'blueprint_news',
     __name__,
-    template_folder='templates'
+    template_folder='templates',
+    static_folder='static'
 )
 
 
