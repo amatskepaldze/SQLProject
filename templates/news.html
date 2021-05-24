@@ -40,7 +40,7 @@
 
 {% for comment in comments %}
 <div class="col-md6 border rounded" style="margin: 1.3%; padding: 10px">
-    <h4>{{ comment.user.name }}</h4>
+    <h4><a href="/user/{{ comment.user.id }}">{{ comment.user.name }}</a></h4>
     <div style="font-size: 115%">
         {{ comment.comment }}
     </div>
