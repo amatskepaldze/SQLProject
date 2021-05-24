@@ -15,13 +15,9 @@
     <a href="/news/delete/{{ item.id }}" class="btn btn-danger">
         Удалить
     </a>
-    {% else %}
-    <a href="/response/{{ item.id }}" class="btn btn-primary register">
-        Отозватся
-    </a>
     {% endif %}
 </div>
-{% if current_user.is_authenticated%}
+{% if current_user.is_authenticated %}
 <form action="" method="post">
     {{ form.hidden_tag() }}
     <p>
