@@ -14,7 +14,7 @@ from blueprints.news import blueprint_news
 from blueprints.users import blueprint_users
 from blueprints.comments import blueprint_comments
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 app.register_blueprint(blueprint_news, url_prefix='/news')
 app.register_blueprint(blueprint_users, url_prefix='/user')

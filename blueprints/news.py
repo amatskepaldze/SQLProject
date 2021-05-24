@@ -55,7 +55,7 @@ def add_news():
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
-    return render_template('edit_news.html', title='Добавление новости', form=form)
+    return render_template('news/edit_news.html', title='Добавление новости', form=form)
 
 
 @blueprint_news.route('/<int:id>', methods=['GET', 'POST'])  # просмотр новости
@@ -76,7 +76,7 @@ def news(id):
         db_sess.commit()
         return redirect(f'/news/{id}')
     comments = ns.get_comments(privat=current_user == ns.user)
-    return render_template('news.html', title=ns.title, item=ns, comments=comments, form=form)
+    return render_template('news/news.html', title=ns.title, item=ns, comments=comments, form=form)
 
 
 @blueprint_news.route('/edit/<int:id>', methods=['GET', 'POST'])  # изменение новости
@@ -107,4 +107,4 @@ def edit_news(id):
             return redirect('/')
         else:
             abort(404)
-    return render_template('edit_news.html', title='Редактирование новости', form=form)
+    return render_template('news/edit_news.html', title='Редактирование новости', form=form)

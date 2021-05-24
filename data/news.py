@@ -28,4 +28,5 @@ class News(SqlAlchemyBase, SerializerMixin):
         return f"<{self.__tablename__}>[{self.user}]\t{self.title}\t({self.created_date})\tpriv:{self.is_private}"
 
     def get_comments(self, privat=False):
-        return sorted(filter(lambda x: not x.is_private or privat, self.comments), key=lambda x: x.created_data)
+        return sorted(filter(lambda x: not x.is_private or privat, self.comments), key=lambda x: x.created_data,
+                      reverse=True)
