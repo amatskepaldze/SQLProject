@@ -54,7 +54,7 @@ def index():
         news = db_sess.query(News).filter((News.user == current_user) | (News.is_private != True))
     else:
         news = db_sess.query(News).filter(News.is_private != True)
-    return render_template("index.html", news=news)
+    return render_template("index.html", news=news, title='Новости')
 
 
 @app.route('/messages')
@@ -109,7 +109,7 @@ def login():
             return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
-                               form=form)
+                               form=form, title='Авторизация')
     return render_template('login.html', title='Авторизация', form=form)
 
 

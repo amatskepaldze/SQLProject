@@ -30,3 +30,6 @@ class News(SqlAlchemyBase, SerializerMixin):
     def get_comments(self, privat=False):
         return sorted(filter(lambda x: not x.is_private or privat, self.comments), key=lambda x: x.created_data,
                       reverse=True)
+
+    def get_short_time(self):
+        return self.created_date.strftime('%d %b %H:%M')
