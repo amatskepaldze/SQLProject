@@ -4,6 +4,6 @@
     <div style="font-size: 115%">
         {{ comment.comment }}
     </div>
-    <small>Дата написания - {{ item.created_date }}</small>
+    <small>Дата написания - {{ item.get_short_time() }}</small>
 </div>
 {% endfor %}

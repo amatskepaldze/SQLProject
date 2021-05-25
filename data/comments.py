@@ -25,3 +25,6 @@ class Comments(SqlAlchemyBase, SerializerMixin):
 
     def delete(self):
         self.news.reacted_count -= 1
+
+    def get_short_time(self):
+        return self.created_data.strftime('%d %b %H:%M')
