@@ -33,11 +33,12 @@ def comm_delete(id):
         if current_user.id != cm.user_id:
             abort(405)
         cm.delete()
+        news_id = cm.news_id
         db_sess.delete(cm)
         db_sess.commit()
     else:
         abort(404)
-    return redirect('/')
+    return redirect(f'/news/{cm.news_id}')
 
 
 @blueprint_comments.route('/edit/<int:id>', methods=['GET', 'POST'])  # изменение новости
@@ -58,6 +59,6 @@ def edit_comm(id):
         comm.comment = form.comment.data
         comm.is_private = form.is_private.data
         db_sess.commit()
-        return redirect('/')
-    return render_template('comments/edit_comments.html', title='Редактирование комментария', form=form,
+        return redirect(f'/news/{comm.news_id}')
+    return render_template('comments/comments.html', form=form, title='Редактирование комментария',
                            news=[comm.news])
