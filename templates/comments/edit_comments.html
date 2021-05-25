@@ -1,0 +1,22 @@
+{% extends '/patterns/base.html' %}
+
+{% block content %}
+{% include 'patterns/news.html' %}
+
+<h1>Редактирование комментария</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.comment.label }}<br>
+        {{ form.comment(class="form-control") }}<br>
+        {% for error in form.comment.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    </p>
+    <p>{{ form.is_private() }} {{ form.is_private.label }}</p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+{% endblock %}

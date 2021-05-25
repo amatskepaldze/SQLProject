@@ -8,7 +8,6 @@ from flask_restful import abort, Api
 from data.db_session import global_init, create_session
 from data.news import News
 from data.users import User
-from forms.news import Response
 from forms.user import LoginForm, RegisterForm
 from blueprints.news import blueprint_news
 from blueprints.users import blueprint_users
@@ -18,6 +17,7 @@ app = Flask(__name__, template_folder='templates')
 
 app.register_blueprint(blueprint_news, url_prefix='/news')
 app.register_blueprint(blueprint_users, url_prefix='/user')
+app.register_blueprint(blueprint_comments, url_prefix='/comments')
 
 app.config['SECRET_KEY'] = '42'
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)

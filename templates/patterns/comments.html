@@ -4,6 +4,18 @@
     <div style="font-size: 115%">
         {{ comment.comment }}
     </div>
-    <small>Дата написания - {{ item.get_short_time() }}</small>
+    <div style="display: flex; align-items: center;">
+        <span><small>Дата написания - {{ comment.get_short_time() }}</small></span>
+        {% if current_user.is_authenticated and current_user == comment.user %}
+        <div style="margin-left: auto;">
+            <a href="/comments/edit/{{ comment.id }}" class="btn btn-primary register">
+                Изменить
+            </a>
+            <a href="/comments/delete/{{ comment.id }}" class="btn btn-danger">
+                Удалить
+            </a>
+        </div>
+        {% endif %}
+    </div>
 </div>
 {% endfor %}

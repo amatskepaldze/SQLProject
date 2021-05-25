@@ -11,8 +11,8 @@ from data.news import News
 from data.users import User
 from data.comments import Comments
 
-from forms.news import NewsForm, Response
-from forms.user import LoginForm, RegisterForm, EditProfile
+from forms.news import NewsForm
+from forms.comments import CommentsForm
 
 blueprint_news = Blueprint(
     'blueprint_news',
@@ -55,7 +55,7 @@ def add_news():
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
-    return render_template('news/edit_news.html', title='Добавление новости', form=form)
+    return render_template('news/edit_news.html', title='Добавление новости', form=form, action="Добавление новости")
 
 
 @blueprint_news.route('/<int:id>', methods=['GET', 'POST'])  # просмотр новости
@@ -67,7 +67,7 @@ def news(id):
     if ns.is_private and ns.user_id != current_user.id:
         return abort(405)
 
-    form = Response()
+    form = CommentsForm()
     if form.validate_on_submit():
         comment = Comments(comment=form.comment.data, news_id=ns.id, user_id=current_user.id,
                            is_private=form.is_private.data, news=ns)
@@ -82,29 +82,21 @@ def news(id):
 @blueprint_news.route('/edit/<int:id>', methods=['GET', 'POST'])  # изменение новости
 @login_required
 def edit_news(id):
+    db_sess = create_session()
+    news = db_sess.query(News).filter(News.id == id, News.user == current_user).first()
+    if not news:
+        abort(404)
+
     form = NewsForm()
     if request.method == "GET":
-        db_sess = create_session()
-        news = db_sess.query(News).filter(News.id == id,
-                                          News.user == current_user
-                                          ).first()
-        if news:
-            form.title.data = news.title
-            form.content.data = news.content
-            form.is_private.data = news.is_private
-        else:
-            abort(404)
+        form.title.data = news.title
+        form.content.data = news.content
+        form.is_private.data = news.is_private
+
     if form.validate_on_submit():
-        db_sess = create_session()
-        news = db_sess.query(News).filter(News.id == id,
-                                          News.user == current_user
-                                          ).first()
-        if news:
-            news.title = form.title.data
-            news.content = form.content.data
-            news.is_private = form.is_private.data
-            db_sess.commit()
-            return redirect('/')
-        else:
-            abort(404)
-    return render_template('news/edit_news.html', title='Редактирование новости', form=form)
+        news.title = form.title.data
+        news.content = form.content.data
+        news.is_private = form.is_private.data
+        db_sess.commit()
+        return redirect('/')
+    return render_template('news/edit_news.html', title='Редактирование новости', form=form, action="Изменение новости")

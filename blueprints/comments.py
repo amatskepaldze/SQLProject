@@ -11,8 +11,7 @@ from data.news import News
 from data.users import User
 from data.comments import Comments
 
-from forms.news import NewsForm, Response
-from forms.user import LoginForm, RegisterForm, EditProfile
+from forms.comments import CommentsForm
 
 blueprint_comments = Blueprint(
     'blueprint_comments',
@@ -21,5 +20,44 @@ blueprint_comments = Blueprint(
 )
 
 
-def not_found_news(message='такой коментария нет'):
+def not_found_news(message='такого коментария нет'):
     return render_template('nothing.html', message=message)
+
+
+@blueprint_comments.route('/delete/<int:id>', methods=['GET'])  # удаление комментария
+@login_required
+def comm_delete(id):
+    db_sess = create_session()
+    cm = db_sess.query(Comments).filter(Comments.id == id).first()
+    if cm:
+        if current_user.id != cm.user_id:
+            abort(405)
+        cm.delete()
+        db_sess.delete(cm)
+        db_sess.commit()
+    else:
+        abort(404)
+    return redirect('/')
+
+
+@blueprint_comments.route('/edit/<int:id>', methods=['GET', 'POST'])  # изменение новости
+@login_required
+def edit_comm(id):
+    db_sess = create_session()
+    comm = db_sess.query(Comments).filter(Comments.id == id, Comments.user == current_user).first()
+    if not comm:
+        abort(404)
+
+    form = CommentsForm()
+
+    if request.method == "GET":
+        form.comment.data = comm.comment
+        form.is_private.data = comm.is_private
+
+    if form.validate_on_submit():
+        comm.comment = form.comment.data
+        comm.is_private = form.is_private.data
+        db_sess.commit()
+        return redirect('/')
+    return render_template('comments/edit_comments.html', title='Редактирование комментария', form=form,
+                           news=[comm.news])

@@ -11,7 +11,6 @@ from data.news import News
 from data.users import User
 from data.comments import Comments
 
-from forms.news import NewsForm, Response
 from forms.user import LoginForm, RegisterForm, EditProfile, EditPasswordEmail
 
 blueprint_users = Blueprint(
