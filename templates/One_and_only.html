@@ -3,188 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>LOX</title>
-    <style>
-        body{
-            overflow: hidden;
-        }
-.cen{
-    border: #d4d4d4 solid 1px;
-    border-radius: 8px;
-    padding:2%;
-    padding-bottom:0.8%;
-    margin-top: 1%;
-    margin-left: 4%;
-    margin-right: 20%;
 
-}
-.b1{
-    border:none;
-    border-radius: 8px;
-    background: mediumseagreen;
-    padding: 0.6%;
-    cursor:pointer;
-}
-.b2 {
-    border:none;
-    border-radius: 8px;
-    background: orange;
-    padding: 0.6%;
-    cursor:pointer;
-}
-
-
-@keyframes go-left-right {   /* назовём анимацию: "go-left-right" */
-    from {
-        left: 0px;              /* от: left: 0px */
-        top: 40%;
-    }
-    to {
-        left: calc(65% - 50px); /* до: left: 100%-50px */
-        top: calc(55% - 20px);
-    }
-}
-
-
-.progress {
-    animation: go-left-right 3.4s infinite alternate;
-}
-@keyframes go-up-right {   /* назовём анимацию: "go-left-right" */
-    from {
-        top: 36%;
-    }
-    to {
-        top: calc(96% - 100px);
-    }
-}
-.progress2 {
-    animation: go-up-right 4s infinite alternate;
-}
-@keyframes go-up-down {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    from {
-        top: 36%;
-    }
-    to {
-        top: calc(96% - 100px);
-    }
-}
-.progress3 {
-    animation: go-up-down 2.5s infinite alternate;
-}
-@keyframes go {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    from {
-        left:6%;
-    }
-    to {
-        left: calc(76% - 70px);
-    }
-}
-.progress4 {
-    animation: go 2s infinite alternate;
-}
-@keyframes go1 {
-
-    0% {
-        transform: rotate(0deg);
-    }
-    0% {
-        transform: scale(1.5);
-    }
-    40% {
-        transform: rotate(270deg);
-    }
-    40% {
-        transform: scale(0.5);
-    }
-    70%{
-        transform: rotate(120deg);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
-
-}
-.turn1 {
-    animation: go1 4s infinite alternate;
-}
-@keyframes go2 {
-
-    0% {
-        transform: rotate(0deg);
-    }
-    0% {
-        transform: scale(0.5);
-    }
-    40% {
-        transform: rotate(270deg);
-    }
-    40% {
-        transform: scale(1.5);
-    }
-    70%{
-        transform: rotate(120deg);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
-
-}
-.turn2 {
-    animation: go2 3.5s infinite alternate;
-}
-.turn3 {
-    animation: go1 3s infinite alternate;
-}.turn4 {
-     animation: go2 2.5s infinite alternate;
- }
-@keyframes go3 {
-    0% {
-        transform: rotate(0deg);
-    }
-    0% {
-        transform: scale(2);
-    }
-
-    40% {
-        transform: scale(0.4);
-    }
-    50% {
-        transform: rotate(120deg);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
-}
-.turn5 {
-    animation: go2 4s infinite alternate;
-}
-.turn6 {
-    animation: go3 3s infinite alternate;
-}
-
-        @keyframes go7 {
-            from {
-                top:65%;
-            }
-            to {
-                top: calc(58% - 100px);
-            }
-        }
-        .progress5 {
-            animation: go7 1s infinite alternate;
-        }
-    </style>
 
 </head>
 <img>
@@ -192,25 +11,30 @@
 <div style="font-size:36px;margin-top: 2%; margin-left: 5%;">Мудрые цитаты:</div>
 <div class="cen">
     <div style="font-size:30px;">Алексей Мацкепладзе</div>
-    <div style="white-space: pre"> </div>
+    <div style="white-space: pre"></div>
     <div style="font-size:20px;font-family:cursive;white-space: pre"> - "Идёшь покушать - покушай"</div>
     <span style="font-size:18px;">Лёха - Лох</span>
     <span style="padding-left:1%;"> <button class="b1">Подтвердить</button></span>
     <span> <button class="b2">Скопировать</button></span>
 </div>
 <span class="progress3" style="position: absolute;right:7%;top:24%"><img src="icons8-скрипичный-ключ-100.png"></img></span>
-<span class="progress2" style="position: absolute;right:16%;top:46%"><img src=""><img src="icons8-apple-music-90.png" height="100" width="100"/></img></span>
-<span class="progress" style="position: absolute;left:6%;top:66%"><img src="icons8-басовый-ключ-100.png" height="100" width="100"/></span>
-<span class="progress4" style="position: absolute;left:50%;top:72%"><img src="icons8-пластинка-160.png" height="160" width="160"/></span>
+<span class="progress2" style="position: absolute;right:16%;top:46%"><img src=""><img src="icons8-apple-music-90.png"
+                                                                                      height="100"
+                                                                                      width="100"/></img></span>
+<span class="progress" style="position: absolute;left:6%;top:66%"><img src="icons8-басовый-ключ-100.png" height="100"
+                                                                       width="100"/></span>
+<span class="progress4" style="position: absolute;left:50%;top:72%"><img src="icons8-пластинка-160.png" height="160"
+                                                                         width="160"/></span>
 <span class="turn1" style="position: absolute;left:20%;top:62%;font-size:50px">Л</span>
 <span class="turn2" style="position: absolute;left:23%;top:62%;font-size:50px">Ё</span>
 <span class="turn3" style="position: absolute;left:26%;top:62%;font-size:50px">Х</span>
 <span class="turn4" style="position: absolute;left:29%;top:62%;font-size:50px">А</span>
 
-<span bold class="turn5" style="position: absolute;left:35%;top:62%;font-size:50px">Л</span>
-<span bold class="turn6" style="position: absolute;left:38%;top:62%;font-size:50px">О</span>
-<span bold class="turn5" style="position: absolute;left:41%;top:62%;font-size:50px">Х</span>
-<span class="progress5" style="position: absolute;left:15%;top:62%"><img src="icons8-палец-вверх-52.png" height="52" width="52"/></span>
+<span class="turn5" style="position: absolute;left:35%;top:62%;font-size:50px">Л</span>
+<span class="turn6" style="position: absolute;left:38%;top:62%;font-size:50px">О</span>
+<span class="turn5" style="position: absolute;left:41%;top:62%;font-size:50px">Х</span>
+<span class="progress5" style="position: absolute;left:15%;top:62%"><img src="icons8-палец-вверх-52.png" height="52"
+                                                                         width="52"/></span>
 <script>
 
 </script>
