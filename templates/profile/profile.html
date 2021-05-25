@@ -1,22 +1,19 @@
 {% extends '/patterns/base.html' %}
 
 {% block content %}
-<nav style="margin: 1%">
-    <a class="navbar-brand" style="font-size: 170%; font-weight: bold">Профиль</a>
-    {% if current_user.is_authenticated %}
+    <h1>Профиль</h1>
+    <h2>{{ user.name }}</h2>
+    <selector class="lead" style="font-size: 115%">{{ user.about }}</selector><br><br>
+    <selector class="lead" style="font-size: 115%"> Музыкальный инструмент: {{ user.instrument }}</selector><br><br>
+    {% if current_user.is_authenticated and current_user == user %}
+        <a href="/user/edit" class="btn btn-primary register">
+            Редактировать профиль
+        </a>
+        <a href="/user/redact" class="btn btn-primary register">
+            Сменить почту или пароль
+        </a>
     {% endif %}
-</nav>
-<h2>{{user.name}}</h2>
-<selector class="lead" style="font-size: 115%">{{user.instrument}}</selector><br><br>
-{% if current_user.is_authenticated and current_user == user %}
-<a href="/user/edit" class="btn btn-primary register">
-    Редактировать профиль
-</a>
-<a href="/user/redact" class="btn btn-primary register">
-    Сменить почту или пароль
-</a>
-{% endif %}
 
-{% include 'patterns/news.html' %}
+    {% include 'patterns/news.html' %}
 
 {% endblock %}

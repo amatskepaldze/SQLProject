@@ -1,36 +1,43 @@
 {% extends '/patterns/base.html' %}
 
 {% block content %}
-<nav style="margin: 1%">
-    <a class="navbar-brand" style="font-size: 170%; font-weight: bold">Редактор Профиля</a>
-    {% if current_user.is_authenticated %}
-    {% endif %}
-</nav>
+    <h1>Редактор Профиля</h1>
 
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <H3>
-        {{ form.name.label }}<br>
-        {{ form.name(class="form-control") }}<br>
-        {% for error in form.name.errors %}
-        <p class="alert alert-danger" role="alert">
-            {{ error }}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <H3>
+            {{ form.name.label }}<br>
+            {{ form.name(class="form-control") }}<br>
+            {% for error in form.name.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </H3>
         </p>
-        {% endfor %}
-    </H3>
-    </p>
-    <p>
-    <h4>
-        {{ form.about.label }}<br>
-        {{ form.about(class="form-control") }}<br>
-        {% for error in form.about.errors %}
-        <p class="alert alert-danger" role="alert">
-            {{ error }}
+        <p>
+        <h4>
+            {{ form.about.label }}<br>
+            {{ form.about(class="form-control") }}<br>
+            {% for error in form.about.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </h4>
         </p>
-        {% endfor %}
-    </h4>
-    </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{ message }}
-</form>
+        <p>
+        <h4>
+            {{ form.instrument.label }}<br>
+            {{ form.instrument(class="form-control") }}<br>
+            {% for error in form.about.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </h4>
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        {{ message }}
+    </form>
 {% endblock %}
