@@ -17,9 +17,11 @@ class News(SqlAlchemyBase, SerializerMixin):
     picture_path = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     reacted_count = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    likes_count = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
     user = orm.relation('User')
     comments = orm.relation('Comments', back_populates='news')
+    liked_users = orm.relation('Comments', back_populates='news')
 
     def short_content(self, length=60):
         return self.content.rjust(length, ' ')[:length]

@@ -26,6 +26,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     news = orm.relation("News", back_populates='user')
     comments = orm.relation('Comments', back_populates='user')
+    likes = orm.relation("Likes", back_populates='user')
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
