@@ -16,6 +16,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
+    instrument = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     picture_path = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 

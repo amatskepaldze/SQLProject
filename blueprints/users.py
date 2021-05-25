@@ -58,10 +58,12 @@ def edit_profile():
         user = db_sess.query(User).filter(User.name == current_user.name).first()
         user.name = form.name.data
         user.about = form.about.data
+        user.instrument = form.instrument.data
         db_sess.commit()
         return redirect('/user')
     form.name.data = current_user.name
     form.about.data = current_user.about
+    form.instrument.data = current_user.instrument
 
     return render_template('profile/edit_profile.html', form=form)
 

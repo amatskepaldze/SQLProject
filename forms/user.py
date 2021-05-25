@@ -11,8 +11,8 @@ class RegisterForm(FlaskForm):
     name = StringField('Имя пользователя', validators=[DataRequired()])
     file = FileField('Аватарка')
     about = TextAreaField("Немного о себе")
+    instrument = StringField('Инструмент')
     submit = SubmitField('Войти')
-
 
 class LoginForm(FlaskForm):
     email = EmailField('Почта', validators=[DataRequired()])
@@ -24,6 +24,7 @@ class LoginForm(FlaskForm):
 class EditProfile(FlaskForm):
     name = StringField('Имя пользователя')
     about = TextAreaField("О себе")
+    instrument = StringField('Инструмент')
     submit = SubmitField('Изменить')
 
 
