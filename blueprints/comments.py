@@ -33,7 +33,6 @@ def comm_delete(id):
         if current_user.id != cm.user_id:
             abort(405)
         cm.delete()
-        news_id = cm.news_id
         db_sess.delete(cm)
         db_sess.commit()
     else:
