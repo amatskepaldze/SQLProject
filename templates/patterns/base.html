@@ -38,16 +38,16 @@
             </ul>
         </div>
         {% if current_user.is_authenticated %}
-        <a class="navbar-brand" href="/logout">{{current_user.name}}</a>
+            <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
         {% else %}
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <a type="button" class="btn btn-primary register" href="/register">Зарегистрироваться</a>
-            <a type="button" class="btn btn-success login" href="/login">Войти</a>
-        </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a type="button" class="btn btn-primary register" href="/register">Зарегистрироваться</a>
+                <a type="button" class="btn btn-success login" href="/login">Войти</a>
+            </div>
         {% endif %}
     </nav>
 </header>
-<div class="animation_blocks">
+<!--<div class="animation_blocks">
 <span class="animation progress4" style="position: fixed;left:50%;top:72%">
     <img src="{{ url_for('static', filename='image/music_plate.png') }}" height="160" width="160"/>
 </span>
@@ -57,11 +57,57 @@
     <span class="animation progress2" style="position: fixed;right:16%;top:46%">
     <img src="{{ url_for('static', filename='image/apple_music.png') }}" height="100" width="100"/>
 </span>
-</div>
+</div>-->
+
+<span id ="i3" class="progress3" style="position: absolute;right:7%;top:24%"><img src="../../static/image/treble_clef.png"></span>
+<span id ="i2" class="progress2" style="position: absolute;right:16%;top:46%"><img src=""><img src="../../static/image/apple_music.png" height="100" width="100"/></span>
+<span id ="i4" class="progress4" style="position: absolute;left:50%;top:72%"><img src="../../static/image/music_plate.png" height="160" width="160"/></span>
 
 <main role="main" class="container">
     <!--<span class="progress3" style="position: absolute;left:10%;top:24%"><img
             src="{{ url_for ('static', filename = 'image/treble_clef.png') }}"></img></span> -->
+    <button onclick="change()" id="button" class="on">ON</button>
+    <script>
+        let a = 1;
+
+        function change() {
+            if (a == 1) {
+                for (let z = 1; z < 6; z++) {
+                    let element = document.getElementById("i" + z);
+                    element.classList.remove("progress" + z);
+                }
+                for (let z = 1; z < 8; z++) {
+                    let element = document.getElementById("it" + z);
+                    if (z == 7)
+                        element.classList.remove("turn5");
+                    else
+                        element.classList.remove("turn" + z);
+                }
+                let b = document.getElementById("button");
+                b.classList.remove("on");
+                b.classList.add("off");
+                b.innerText = "OFF";
+                a = 0;
+            } else if (a == 0) {
+                for (let z = 1; z < 6; z++) {
+                    let element = document.getElementById("i" + z);
+                    element.classList.add("progress" + z);
+                }
+                for (let z = 1; z < 8; z++) {
+                    let element = document.getElementById("it" + z);
+                    if (z == 7)
+                        element.classList.add("turn5");
+                    else
+                        element.classList.add("turn" + z);
+                }
+                let b = document.getElementById("button");
+                b.classList.remove("off");
+                b.classList.add("on");
+                b.innerText = "ON";
+                a = 1;
+            }
+        }
+    </script>
 
     {% block content %}{% endblock %}
 </main>

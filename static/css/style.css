@@ -1,4 +1,52 @@
-@keyframes go-up-right {   /* назовём анимацию: "go-left-right" */
+body {
+    overflow: hidden;
+}
+
+.cen {
+    border: #d4d4d4 solid 1px;
+    border-radius: 8px;
+    padding: 2%;
+    padding-bottom: 0.8%;
+    margin-top: 1%;
+    margin-left: 4%;
+    margin-right: 20%;
+
+}
+
+.b1 {
+    border: none;
+    border-radius: 8px;
+    background: mediumseagreen;
+    padding: 0.6%;
+    cursor: pointer;
+}
+
+.b2 {
+    border: none;
+    border-radius: 8px;
+    background: orange;
+    padding: 0.6%;
+    cursor: pointer;
+}
+
+
+@keyframes go-left-right { /* назовём анимацию: "go-left-right" */
+    from {
+        left: 0px; /* от: left: 0px */
+        top: 40%;
+    }
+    to {
+        left: calc(65% - 50px); /* до: left: 100%-50px */
+        top: calc(55% - 20px);
+    }
+}
+
+
+.progress1 {
+    animation: go-left-right 3.4s infinite alternate;
+}
+
+@keyframes go-up-right { /* назовём анимацию: "go-left-right" */
     from {
         top: 36%;
     }
@@ -6,9 +54,11 @@
         top: calc(96% - 100px);
     }
 }
-.animation.progress2 {
+
+.progress2 {
     animation: go-up-right 4s infinite alternate;
 }
+
 @keyframes go-up-down {
     0% {
         transform: rotate(0deg);
@@ -23,9 +73,11 @@
         top: calc(96% - 100px);
     }
 }
-.animation.progress3 {
+
+.progress3 {
     animation: go-up-down 2.5s infinite alternate;
 }
+
 @keyframes go {
     0% {
         transform: rotate(0deg);
@@ -34,16 +86,19 @@
         transform: rotate(360deg);
     }
     from {
-        left:6%;
+        left: 6%;
     }
     to {
         left: calc(76% - 70px);
     }
 }
-.animation.progress4 {
+
+.progress4 {
     animation: go 2s infinite alternate;
 }
+
 @keyframes go1 {
+
     0% {
         transform: rotate(0deg);
     }
@@ -56,10 +111,108 @@
     40% {
         transform: scale(0.5);
     }
-    70%{
+    70% {
         transform: rotate(120deg);
     }
-    100%{
+    100% {
         transform: rotate(360deg);
     }
+
+}
+
+.turn1 {
+    animation: go1 4s infinite alternate;
+}
+
+@keyframes go2 {
+
+    0% {
+        transform: rotate(0deg);
+    }
+    0% {
+        transform: scale(0.5);
+    }
+    40% {
+        transform: rotate(270deg);
+    }
+    40% {
+        transform: scale(1.5);
+    }
+    70% {
+        transform: rotate(120deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+
+}
+
+.turn2 {
+    animation: go2 3.5s infinite alternate;
+}
+
+.turn3 {
+    animation: go1 3s infinite alternate;
+}
+
+.turn4 {
+    animation: go2 2.5s infinite alternate;
+}
+
+@keyframes go3 {
+    0% {
+        transform: rotate(0deg);
+    }
+    0% {
+        transform: scale(2);
+    }
+
+    40% {
+        transform: scale(0.4);
+    }
+    50% {
+        transform: rotate(120deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.turn5 {
+    animation: go2 4s infinite alternate;
+}
+
+.turn6 {
+    animation: go3 3s infinite alternate;
+}
+
+@keyframes go7 {
+    from {
+        top: 65%;
+    }
+    to {
+        top: calc(58% - 100px);
+    }
+}
+
+.progress5 {
+    animation: go7 1s infinite alternate;
+}
+
+.on {
+    border: none;
+    background: green;
+    padding: 2%;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.off {
+    border: none;
+    background: red;
+    padding: 2%;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
 }
