@@ -17,10 +17,10 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar">
-        <a class="control">
+        <button onclick="change()" id="button">
             <img src="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" alt="" width="40" height="40"
                  style="margin-right:8px">
-        </a>
+        </button>
         <a class="navbar-brand" href="/">Talent_Tinder</a>
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
@@ -38,12 +38,12 @@
             </ul>
         </div>
         {% if current_user.is_authenticated %}
-            <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+        <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
         {% else %}
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <a type="button" class="btn btn-primary register" href="/register">Зарегистрироваться</a>
-                <a type="button" class="btn btn-success login" href="/login">Войти</a>
-            </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a type="button" class="btn btn-primary register" href="/register">Зарегистрироваться</a>
+            <a type="button" class="btn btn-success login" href="/login">Войти</a>
+        </div>
         {% endif %}
     </nav>
 </header>
@@ -59,56 +59,14 @@
 </span>
 </div>-->
 
-<span id ="i3" class="progress3" style="position: absolute;right:7%;top:24%"><img src="../../static/image/treble_clef.png"></span>
-<span id ="i2" class="progress2" style="position: absolute;right:16%;top:46%"><img src=""><img src="../../static/image/apple_music.png" height="100" width="100"/></span>
-<span id ="i4" class="progress4" style="position: absolute;left:50%;top:72%"><img src="../../static/image/music_plate.png" height="160" width="160"/></span>
+<span id="i2" class="progress2" style="position: absolute;right:7%;top:24%"><img
+        src="../../static/image/treble_clef.png"></span>
+<span id="i1" class="progress1" style="position: absolute;right:16%;top:46%"><img src=""><img
+        src="../../static/image/apple_music.png" height="100" width="100"/></span>
+<span id="i3" class="progress3" style="position: absolute;left:50%;top:72%"><img
+        src="../../static/image/music_plate.png" height="160" width="160"/></span>
 
 <main role="main" class="container">
-    <!--<span class="progress3" style="position: absolute;left:10%;top:24%"><img
-            src="{{ url_for ('static', filename = 'image/treble_clef.png') }}"></img></span> -->
-    <button onclick="change()" id="button" class="on">ON</button>
-    <script>
-        let a = 1;
-
-        function change() {
-            if (a == 1) {
-                for (let z = 1; z < 6; z++) {
-                    let element = document.getElementById("i" + z);
-                    element.classList.remove("progress" + z);
-                }
-                for (let z = 1; z < 8; z++) {
-                    let element = document.getElementById("it" + z);
-                    if (z == 7)
-                        element.classList.remove("turn5");
-                    else
-                        element.classList.remove("turn" + z);
-                }
-                let b = document.getElementById("button");
-                b.classList.remove("on");
-                b.classList.add("off");
-                b.innerText = "OFF";
-                a = 0;
-            } else if (a == 0) {
-                for (let z = 1; z < 6; z++) {
-                    let element = document.getElementById("i" + z);
-                    element.classList.add("progress" + z);
-                }
-                for (let z = 1; z < 8; z++) {
-                    let element = document.getElementById("it" + z);
-                    if (z == 7)
-                        element.classList.add("turn5");
-                    else
-                        element.classList.add("turn" + z);
-                }
-                let b = document.getElementById("button");
-                b.classList.remove("off");
-                b.classList.add("on");
-                b.innerText = "ON";
-                a = 1;
-            }
-        }
-    </script>
-
     {% block content %}{% endblock %}
 </main>
 <br>
