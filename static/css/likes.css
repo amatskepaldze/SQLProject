@@ -188,6 +188,18 @@
   transform: translateX(var(--span-x, 4px)) translateZ(0);
 }
 
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body .button {
   margin: 0 12px;
 }
