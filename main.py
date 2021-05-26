@@ -54,6 +54,7 @@ def index():
         news = db_sess.query(News).filter((News.user == current_user) | (News.is_private != True))
     else:
         news = db_sess.query(News).filter(News.is_private != True)
+    news = sorted(news, key=lambda x: x.created_date, reverse=True)
     return render_template("index.html", news=news, title='Новости')
 
 
