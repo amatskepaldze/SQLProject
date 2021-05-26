@@ -1,41 +1,52 @@
 {% extends '/patterns/base.html' %}
 
 {% block content %}
-<h3>{{ item.title }}</h3>
-<selector class="lead" style="font-size: 115%">
-    {{ item.content }}
-</selector>
-<div style="display: flex; align-items: center;">
-    Автор - <a href="/user/{{ item.user.id }}">{{ item.user.name }}</a>, Дата написания - {{ item.created_date }}
-    <div style="margin-left: auto;">
-        <strong>Отозвались {{ item.reacted_count }}</strong>
-        {% if current_user.is_authenticated and current_user == item.user %}
-        <a href="/news/edit/{{ item.id }}" class="btn btn-primary register">
-            Изменить
-        </a>
-        <a href="/news/delete/{{ item.id }}" class="btn btn-danger">
-            Удалить
-        </a>
-        {% endif %}
-    </div>
-</div>
-{% if current_user.is_authenticated %}
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.comment.label }}<br>
-        {{ form.comment(class="form-control") }}<br>
-        {% for error in form.comment.errors %}
-    <p content="alert alert-danger" role="alert">
-        {{ error }}
-    </p>
-    {% endfor %}
-    </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{message}}
-</form>
-{% endif %}
+    <h3>{{ item.title }}</h3>
+    <selector class="lead" style="font-size: 115%">
+        {{ item.content }}
+    </selector>
+    <div style="display: flex; align-items: center;">
+        Автор - <a href="/user/{{ item.user.id }}">{{ item.user.name }}</a>, Дата написания - {{ item.created_date }}
+        <div style="margin-left: auto;">
 
-{% include 'patterns/comments.html' %}
+            <strong>Отозвались {{ item.reacted_count }}</strong>
+
+            {% if current_user.is_authenticated and current_user == item.user %}
+                <a href="/news/edit/{{ item.id }}" class="btn btn-primary register">
+                    Изменить
+                </a>
+                <a href="/news/delete/{{ item.id }}" class="btn btn-danger">
+                    Удалить
+                </a>
+            {% else %}
+                <button onclick="like()" class="button">
+                    <div class="hand">
+                        <div class="thumb"></div>
+                    </div>
+                    <span>Like<span>d</span> 123</span>
+                </button>
+            {% endif %}
+        </div>
+
+    </div>
+
+    {% if current_user.is_authenticated %}
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.comment.label }}<br>
+                {{ form.comment(class="form-control") }}<br>
+                {% for error in form.comment.errors %}
+                    <p content="alert alert-danger" role="alert">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+            {{ message }}
+        </form>
+    {% endif %}
+
+    {% include 'patterns/comments.html' %}
 
 {% endblock %}

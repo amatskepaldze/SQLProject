@@ -1,19 +1,20 @@
 {% for item in news %}
-<div class="col-md6 border rounded" style="margin: 1.3%; padding: 10px">
-    <h2>{{ item.title }}</h2>
-    <div style="font-size: 115%">
-        {{ item.short_content() }}
-    </div>
-    <div style="display: flex; align-items: center;">
-        <div>
-            Автор - <a href="/user/{{ item.user.id }}">{{ item.user.name }}</a>
+    <div class="col-md6 border rounded" style="margin: 1.3%; padding: 10px">
+        <h2>{{ item.title }}</h2>
+        <div style="font-size: 115%">
+            {{ item.short_content() }}
         </div>
-        <div style="margin-left: auto;">
-            <span>Дата написания - {{ item.get_short_time() }} </span>
-            <a href="/news/{{ item.id }}" class="btn btn-primary register">
-                Перейти
-            </a>
+        <div style="display: flex; align-items: center;">
+            <div>
+                Автор - <a href="/user/{{ item.user.id }}">{{ item.user.name }}</a>
+            </div>
+            <div style="margin-left: auto;">
+                <span>Дата написания - {{ item.get_short_time() }} </span>
+                <a href="/news/{{ item.id }}" class="btn btn-primary register">
+                    Перейти
+                </a>
+            </div>
         </div>
     </div>
-</div>
+
 {% endfor %}
