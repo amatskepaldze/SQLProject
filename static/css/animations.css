@@ -38,10 +38,10 @@
         transform: rotate(360deg);
     }
     from {
-        left: 6%;
+        left: 15%;
     }
     to {
-        left: calc(76% - 70px);
+        left: calc(76% - 0px);
     }
 }
 
