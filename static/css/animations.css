@@ -1,0 +1,50 @@
+@keyframes go-up-right { /* назовём анимацию: "go-left-right" */
+    from {
+        top: 36%;
+    }
+    to {
+        top: calc(96% - 100px);
+    }
+}
+
+.progress1 {
+    animation: go-up-right 4s infinite alternate;
+}
+
+@keyframes go-up-down {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    from {
+        top: 36%;
+    }
+    to {
+        top: calc(96% - 100px);
+    }
+}
+
+.progress2 {
+    animation: go-up-down 2.5s infinite alternate;
+}
+
+@keyframes go {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    from {
+        left: 6%;
+    }
+    to {
+        left: calc(76% - 70px);
+    }
+}
+
+.progress3 {
+    animation: go 2s infinite alternate;
+}

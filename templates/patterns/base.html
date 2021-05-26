@@ -9,15 +9,15 @@
           crossorigin="anonymous">
     <title>{{ title }}</title>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/animations.css">
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" type="image/png">
     <link rel="icon" href="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" type="image/png">
-    <script src="{{ url_for('static', filename = 'scripts/animations.js') }}"></script>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar">
-        <button onclick="change()" id="button">
+        <button onclick="change()" class="btn" style="padding: 0;">
             <img src="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" alt="" width="40" height="40"
                  style="margin-right:8px">
         </button>
@@ -70,5 +70,6 @@
     {% block content %}{% endblock %}
 </main>
 <br>
+<script src="{{ url_for('static', filename = 'scripts/animations.js') }}"></script>
 </body>
 </html>

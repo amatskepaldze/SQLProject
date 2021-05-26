@@ -1,68 +1,15 @@
-@keyframes go-up-right { /* назовём анимацию: "go-left-right" */
-    from {
-        top: 36%;
-    }
-    to {
-        top: calc(96% - 100px);
-    }
+.hide_button {
+  padding: 0px;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  /* отображаем курсор в виде руки при наведении; некоторые
+  считают, что необходимо оставлять стрелочный вид для кнопок */
+  cursor: pointer;
 }
-
-.progress1 {
-    animation: go-up-right 4s infinite alternate;
-}
-
-@keyframes go-up-down {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    from {
-        top: 36%;
-    }
-    to {
-        top: calc(96% - 100px);
-    }
-}
-
-.progress2 {
-    animation: go-up-down 2.5s infinite alternate;
-}
-
-@keyframes go {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    from {
-        left: 6%;
-    }
-    to {
-        left: calc(76% - 70px);
-    }
-}
-
-.progress3 {
-    animation: go 2s infinite alternate;
-}
-
-.on {
-    border: none;
-    background: green;
-    padding: 2%;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.off {
-    border: none;
-    background: red;
-    padding: 2%;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
+.hide_button:hover {
+    box-shadow: inset 51px 0 0 0 #1161ee;
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
 }
