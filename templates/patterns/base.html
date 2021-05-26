@@ -12,13 +12,15 @@
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" type="image/png">
     <link rel="icon" href="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" type="image/png">
-    <script type=""></script>
+    <script src="{{ url_for('static', filename = 'scripts/animations.js') }}"></script>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar">
-        <img src="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" alt="" width="40" height="40"
-             style="margin-right:8px">
+        <a class="control">
+            <img src="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" alt="" width="40" height="40"
+                 style="margin-right:8px">
+        </a>
         <a class="navbar-brand" href="/">Talent_Tinder</a>
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
@@ -45,15 +47,17 @@
         {% endif %}
     </nav>
 </header>
-<span class="progress4" style="position: fixed;left:50%;top:72%">
+<div class="animation_blocks">
+<span class="animation progress4" style="position: fixed;left:50%;top:72%">
     <img src="{{ url_for('static', filename='image/music_plate.png') }}" height="160" width="160"/>
 </span>
-<span class="progress3" style="position: fixed;right:7%;top:24%">
+    <span class="animation progress3" style="position: fixed;right:7%;top:24%">
     <img src="{{ url_for('static', filename='image/treble_clef.png') }}">
 </span>
-<span class="progress2" style="position: fixed;right:16%;top:46%">
+    <span class="animation progress2" style="position: fixed;right:16%;top:46%">
     <img src="{{ url_for('static', filename='image/apple_music.png') }}" height="100" width="100"/>
 </span>
+</div>
 
 <main role="main" class="container">
     <!--<span class="progress3" style="position: absolute;left:10%;top:24%"><img

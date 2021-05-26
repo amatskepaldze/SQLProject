@@ -130,7 +130,9 @@ def logout():
 def main():
     global_init("db/blogs.db")
 
-    app.run()
+    port = int(os.environ.get("PORT", 8080))
+    app.run(port=port)
 
 
-main()
+if __name__ == '__main__':
+    main()

@@ -6,7 +6,7 @@
         top: calc(96% - 100px);
     }
 }
-.progress2 {
+.animation.progress2 {
     animation: go-up-right 4s infinite alternate;
 }
 @keyframes go-up-down {
@@ -23,7 +23,7 @@
         top: calc(96% - 100px);
     }
 }
-.progress3 {
+.animation.progress3 {
     animation: go-up-down 2.5s infinite alternate;
 }
 @keyframes go {
@@ -40,7 +40,7 @@
         left: calc(76% - 70px);
     }
 }
-.progress4 {
+.animation.progress4 {
     animation: go 2s infinite alternate;
 }
 @keyframes go1 {
