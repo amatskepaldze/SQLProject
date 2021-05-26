@@ -66,12 +66,12 @@ def messages():
         ns = db_sess.query(News).filter((News.user == current_user) | (News.is_private != True))
     else:
         ns = db_sess.query(News).filter(News.is_private != True)
-    return render_template("messages.html", news=ns)
+    return render_template("messages.html", news=ns, title='messages')
 
 
 @app.route('/about_us')
 def about_us():
-    return render_template("about_us.html")
+    return render_template("about_us.html", title='о нас')
 
 
 @app.route('/register', methods=['GET', 'POST'])

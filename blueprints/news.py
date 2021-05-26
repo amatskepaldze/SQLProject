@@ -23,7 +23,7 @@ blueprint_news = Blueprint(
 
 
 def not_found_news(message='такой новости нет'):
-    return render_template('nothing.html', message=message)
+    return render_template('nothing.html', message=message, title='404')
 
 
 @blueprint_news.route('/delete/<int:id>', methods=['GET'])  # удаление новости
