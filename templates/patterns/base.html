@@ -50,30 +50,21 @@
         {% endif %}
     </nav>
 </header>
-<!--<div class="animation_blocks">
-<span class="animation progress4" style="position: fixed;left:50%;top:72%">
-    <img src="{{ url_for('static', filename='image/music_plate.png') }}" height="160" width="160"/>
-</span>
-    <span class="animation progress3" style="position: fixed;right:7%;top:24%">
-    <img src="{{ url_for('static', filename='image/treble_clef.png') }}">
-</span>
-    <span class="animation progress2" style="position: fixed;right:16%;top:46%">
-    <img src="{{ url_for('static', filename='image/apple_music.png') }}" height="100" width="100"/>
-</span>
-</div>-->
-
+<!-- это блок анимаций: -->
 <span id="i2" class="progress2" style="position: fixed;right:4%;top:24%"><img
         src="../../static/image/treble_clef.png"></span>
 <span id="i1" class="progress1" style="position: fixed;left:4%;top:46%"><img src=""><img
         src="../../static/image/apple_music.png" height="100" width="100"/></span>
 <span id="i3" class="progress3" style="position: fixed;left:50%;top:72%"><img
         src="../../static/image/music_plate.png" height="160" width="160"/></span>
+<script src="{{ url_for('static', filename = 'scripts/animations.js') }}"></script>
+<!-- основной блок --->
 
 <main role="main" class="container">
     {% block content %}{% endblock %}
 </main>
 <br>
-<script src="{{ url_for('static', filename = 'scripts/animations.js') }}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
 <script src="{{ url_for('static', filename='scripts/like/likes_animation.js') }}"></script>
 <script src="{{ url_for('static', filename='scripts/like/likes.js') }}"></script>
