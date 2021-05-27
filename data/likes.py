@@ -1,11 +1,10 @@
 from datetime import datetime
 import sqlalchemy
 from data.db_session import SqlAlchemyBase
-from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy import orm
 
 
-class Likes(SqlAlchemyBase, SerializerMixin):
+class Likes(SqlAlchemyBase):
     __tablename__ = 'likes'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
