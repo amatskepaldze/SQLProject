@@ -10,6 +10,7 @@ from data.db_session import global_init, create_session
 from data.news import News
 from data.users import User
 from data.comments import Comments
+from data.likes import Likes
 
 from forms.news import NewsForm
 from forms.comments import CommentsForm
@@ -76,7 +77,8 @@ def news(id):
         db_sess.commit()
         return redirect(f'/news/{id}')
     comments = ns.get_comments(privat=current_user == ns.user)
-    return render_template('news/news.html', title=ns.title, item=ns, comments=comments, form=form)
+    return render_template('news/news.html', title=ns.title, item=ns, comments=comments, form=form,
+                           liked=any(filter(lambda x: x.user == current_user, ns.likes)))
 
 
 @blueprint_news.route('/edit/<int:id>', methods=['GET', 'POST'])  # изменение новости
@@ -100,3 +102,25 @@ def edit_news(id):
         db_sess.commit()
         return redirect('/')
     return render_template('news/edit_news.html', title='Редактирование новости', form=form, action="Изменение новости")
+
+
+@blueprint_news.route('/<int:id>/like', methods=['POST'])
+def like_the_news(id):
+    print(id)
+    if not current_user.is_authenticated:
+        return abort(405)
+    db_sess = create_session()
+    ns = db_sess.query(News).filter(News.id == id).first()
+    if not ns or ns.user == current_user:
+        return abort(404)
+    like = db_sess.query(Likes).filter(Likes.user == current_user and Likes.news == ns).first()
+    if like:
+        like.delete()
+        db_sess.delete(like)
+        db_sess.commit()
+    else:
+        like = Likes(user_id=current_user.id, news_id=ns.id, news=ns)
+        db_sess.add(like)
+        like.post()
+        db_sess.commit()
+    return redirect(f'/news/{id}')

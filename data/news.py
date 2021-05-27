@@ -21,7 +21,7 @@ class News(SqlAlchemyBase, SerializerMixin):
 
     user = orm.relation('User')
     comments = orm.relation('Comments', back_populates='news')
-    liked_users = orm.relation('Comments', back_populates='news')
+    likes = orm.relation('Likes', back_populates='news')
 
     def short_content(self, length=60):
         return self.content.rjust(length, ' ')[:length]
