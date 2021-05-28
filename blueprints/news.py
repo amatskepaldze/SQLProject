@@ -4,7 +4,6 @@ import os
 
 from flask import (Flask, render_template, redirect, request, abort, Blueprint)
 from flask_login import (LoginManager, login_user, logout_user, login_required, current_user)
-from flask_restful import abort, Api
 
 from data.db_session import global_init, create_session
 from data.news import News
