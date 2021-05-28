@@ -3,7 +3,6 @@ import os
 
 from flask import (Flask, render_template, redirect, request, abort)
 from flask_login import (LoginManager, login_user, logout_user, login_required, current_user)
-from flask_restful import abort, Api
 
 from data.db_session import global_init, create_session
 from data.news import News
@@ -22,7 +21,6 @@ app.register_blueprint(blueprint_comments, url_prefix='/comments')
 app.config['SECRET_KEY'] = '42'
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['FLASK_DEBUG'] = 0
-api = Api(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
