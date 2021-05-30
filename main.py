@@ -13,18 +13,17 @@ from blueprints.users import blueprint_users
 from blueprints.comments import blueprint_comments
 
 app = Flask(__name__, template_folder='templates')
-
-app.register_blueprint(blueprint_news, url_prefix='/news')
-app.register_blueprint(blueprint_users, url_prefix='/user')
-app.register_blueprint(blueprint_comments, url_prefix='/comments')
-
-app.config['SECRET_KEY'] = '42'
+app.config['SECRET_KEY'] = 'Matskepladze_Yanochkin2004!'
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['FLASK_DEBUG'] = 0
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+app.register_blueprint(blueprint_news, url_prefix='/news')
+app.register_blueprint(blueprint_users, url_prefix='/user')
+app.register_blueprint(blueprint_comments, url_prefix='/comments')
 
 
 @login_manager.user_loader
@@ -125,12 +124,8 @@ def logout():
     return redirect('/')
 
 
-def main():
+if __name__ == '__main__':
     global_init("db/blogs.db")
 
     port = int(os.environ.get("PORT", 8080))
-    app.run(port=port)
-
-
-if __name__ == '__main__':
-    main()
+    app.run(port=port)  # host='0.0.0.0'
