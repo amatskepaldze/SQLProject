@@ -10,6 +10,7 @@
         <th scope="col">created_date</th>
         <th scope="col">user</th>
         <th scope="col">news</th>
+        <th scope="col">---</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
         <td>{{like.created_date}}</td>
         <td>{{like.user}}</td>
         <td>{{like.news}}</td>
+        <th scope="col"><a href="/admin/tables/likes/{{ like.id }}">del</a></th>
     </tr>
     {% endfor %}
     </tbody>

@@ -38,3 +38,20 @@ def admin_likes():
     db_sess = create_session()
     likes = db_sess.query(Likes)
     return render_template('admin/likes.html', title='likes', likes=likes)
+
+
+@blueprint_admin.route('/tables/likes/<int:id>', methods=['GET'])  # удаление комментария
+@login_required
+@admin
+def rm_like(id):
+    db_sess = create_session()
+    like = db_sess.query(Likes).filter(Likes.id == id).first()
+    if like:
+        try:
+            like.delete()
+        except:
+            print(like)
+        db_sess.delete(like)
+        db_sess.commit()
+        return redirect('/admin/tables/likes')
+    return 'not found'

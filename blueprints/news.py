@@ -111,13 +111,13 @@ def like_the_news(id):
     ns = db_sess.query(News).filter(News.id == id).first()
     if not ns or ns.user == current_user:
         return abort(404)
-    like = db_sess.query(Likes).filter(Likes.user == current_user and Likes.news == ns).first()
-    print(f"ns:{ns.id} lk:{like.id} ")
+    like = db_sess.query(Likes).filter(Likes.user_id == current_user.id and Likes.news_id == id).first()
+    print(like)
     if like:
         like.delete()
         db_sess.delete(like)
     else:
-        like = Likes(user_id=current_user.id, news_id=ns.id, news=ns)
+        like = Likes(user_id=current_user.id, news_id=id, news=ns)
         db_sess.add(like)
         db_sess.commit()
         like.post()

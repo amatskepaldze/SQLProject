@@ -24,3 +24,6 @@ class Likes(SqlAlchemyBase):
 
     def get_short_time(self):
         return self.created_date.strftime('%d %b %H:%M')
+
+    def __repr__(self):
+        return f"id:{self.id} user_id:{self.user_id} news_id:{self.news_id} created_date:{self.created_date}"
