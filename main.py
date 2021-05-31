@@ -11,6 +11,7 @@ from forms.user import LoginForm, RegisterForm
 from blueprints.news import blueprint_news
 from blueprints.users import blueprint_users
 from blueprints.comments import blueprint_comments
+from blueprints.admin import blueprint_admin
 
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = 'Matskepladze_Yanochkin2004!'
@@ -24,6 +25,7 @@ login_manager.login_view = 'login'
 app.register_blueprint(blueprint_news, url_prefix='/news')
 app.register_blueprint(blueprint_users, url_prefix='/user')
 app.register_blueprint(blueprint_comments, url_prefix='/comments')
+app.register_blueprint(blueprint_admin, url_prefix='/admin')
 
 
 @login_manager.user_loader

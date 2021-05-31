@@ -105,7 +105,6 @@ def edit_news(id):
 
 @blueprint_news.route('/<int:id>/like', methods=['POST'])
 def like_the_news(id):
-    print(id)
     if not current_user.is_authenticated:
         return abort(405)
     db_sess = create_session()
@@ -113,13 +112,14 @@ def like_the_news(id):
     if not ns or ns.user == current_user:
         return abort(404)
     like = db_sess.query(Likes).filter(Likes.user == current_user and Likes.news == ns).first()
+    print(f"ns:{ns.id} lk:{like.id} ")
     if like:
         like.delete()
         db_sess.delete(like)
-        db_sess.commit()
     else:
         like = Likes(user_id=current_user.id, news_id=ns.id, news=ns)
         db_sess.add(like)
-        like.post()
         db_sess.commit()
+        like.post()
+    db_sess.commit()
     return redirect(f'/news/{id}')
