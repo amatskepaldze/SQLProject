@@ -111,7 +111,7 @@ def like_the_news(id):
     ns = db_sess.query(News).filter(News.id == id).first()
     if not ns or ns.user == current_user:
         return abort(404)
-    like = db_sess.query(Likes).filter((Likes.user_id == current_user.id) | (Likes.news_id == id)).first()
+    like = db_sess.query(Likes).filter(Likes.user_id == current_user.id, Likes.news_id == id).first()
     print(like)
     if like:
         like.delete()
