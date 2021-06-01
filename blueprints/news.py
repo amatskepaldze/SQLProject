@@ -11,7 +11,7 @@ from data.users import User
 from data.comments import Comments
 from data.likes import Likes
 
-from forms.news import NewsForm
+from forms.news import NewNewsForm, EditNewsForm
 from forms.comments import CommentsForm
 
 blueprint_news = Blueprint(
@@ -30,10 +30,8 @@ def not_found_news(message='такой новости нет'):
 @login_required
 def news_delete(id):
     db_sess = create_session()
-    ns = db_sess.query(News).filter(News.id == id).first()
+    ns = db_sess.query(News).filter(News.id == id, News.user_id == current_user.id).first()
     if ns:
-        if current_user.id != ns.user_id:
-            abort(405)
         db_sess.delete(ns)
         db_sess.commit()
     else:
@@ -44,7 +42,7 @@ def news_delete(id):
 @blueprint_news.route('/', methods=['GET', 'POST'])  # создание новости
 @login_required
 def add_news():
-    form = NewsForm()
+    form = NewNewsForm()
     if form.validate_on_submit():
         db_sess = create_session()
         news = News()
@@ -88,7 +86,7 @@ def edit_news(id):
     if not news:
         abort(404)
 
-    form = NewsForm()
+    form = EditNewsForm()
     if request.method == "GET":
         form.title.data = news.title
         form.content.data = news.content

@@ -22,11 +22,11 @@ class News(SqlAlchemyBase):
     comments = orm.relation('Comments', back_populates='news')
     likes = orm.relation('Likes', back_populates='news')
 
+    def get_content(self):
+        return self.content
+
     def short_content(self, length=60):
         return self.content.rjust(length, ' ')[:length]
-
-    def __repr__(self):
-        return f"<{self.__tablename__}>[{self.user}]\t{self.title}\t({self.created_date})\tpriv:{self.is_private}"
 
     def get_comments(self, privat=False):
         return sorted(filter(lambda x: not x.is_private or privat, self.comments), key=lambda x: x.created_data,
@@ -34,3 +34,6 @@ class News(SqlAlchemyBase):
 
     def get_short_time(self):
         return self.created_date.strftime('%d %b %H:%M')
+
+    def __repr__(self):
+        return f"<{self.__tablename__}>[{self.user}]\t{self.title}\t({self.created_date})\tpriv:{self.is_private}"
