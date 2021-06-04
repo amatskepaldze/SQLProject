@@ -1,0 +1,33 @@
+{% extends '/patterns/base.html' %}
+
+{% block content %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">email</th>
+        <th scope="col">created_date</th>
+        <th scope="col">instrument</th>
+        <th scope="col">news</th>
+        <th scope="col">news</th>
+        <th scope="col">news</th>
+        <th scope="col">---</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for like in likes %}
+    <tr class="{% if not (like.user and like.news) %}table-warning{% endif %}">
+        <th scope="row">{{like.id}}</th>
+        <td>{{like.user_id}}</td>
+        <td>{{like.news_id}}</td>
+        <td>{{like.created_date}}</td>
+        <td>{{like.user}}</td>
+        <td>{{like.news}}</td>
+        <th scope="col"><a href="/admin/tables/likes/{{ like.id }}">del</a></th>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

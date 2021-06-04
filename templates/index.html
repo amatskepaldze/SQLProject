@@ -2,7 +2,7 @@
 
 {% block content %}
 <nav style="margin: 1%">
-    <a class="navbar-brand" style="font-size: 170%; font-weight: bold">Записи в блоге:</a>
+    <a class="navbar-brand" style="font-size: 170%; font-weight: bold; padding:0px;">Новости:</a>
     {% if current_user.is_authenticated %}
     <a href="news" class="btn btn-secondary" style="float:right">Добавить новость</a>
     {% endif %}

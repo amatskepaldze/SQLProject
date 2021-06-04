@@ -5,6 +5,14 @@
     <h2>{{ user.name }}</h2>
     <selector class="lead" style="font-size: 115%">{{ user.about }}</selector><br><br>
     <selector class="lead" style="font-size: 115%"> Музыкальный инструмент: {{ user.instrument }}</selector><br><br>
+    <a href="/user/{{user.id}}/liked_news" class="btn btn-primary">
+        {% if current_user.is_authenticated and current_user == user %}
+        Вам понравилось
+        {% else %}
+        Понравилось {{user.name}}
+        {% endif %}
+    </a>
+    <h3>Настройки</h3>
     {% if current_user.is_authenticated and current_user == user %}
         <a href="/user/edit" class="btn btn-primary register">
             Редактировать профиль

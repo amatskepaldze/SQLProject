@@ -1,0 +1,10 @@
+{% extends '/patterns/base.html' %}
+
+{% block content %}
+<nav style="margin: 1%">
+    <a class="navbar-brand" style="font-size: 170%; font-weight: bold">Понравилось {{user.name}}</a>
+</nav>
+
+{% include 'patterns/news.html' %}
+
+{% endblock %}

@@ -92,3 +92,12 @@ def redact():
         db_sess.commit()
         return redirect('/')
     return render_template('profile/redact_profile.html', title='редактирование профиля', form=form)
+
+
+@blueprint_users.route('/<int:id>/liked_news', methods=['GET'])
+@login_required
+def liked_news(id):
+    db_sess = create_session()
+    user = db_sess.query(User).filter(User.id == id).first()
+    liked_news = list(map(lambda x: x.news, sorted(user.likes, key=lambda x: x.created_date, reverse=True)))
+    return render_template('profile/liked_news.html', user=user, news=liked_news, title=f'понравилось {user.name}')
