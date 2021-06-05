@@ -37,5 +37,8 @@ class User(SqlAlchemyBase, UserMixin):
         return sorted(filter(lambda x: (not x.is_private or privat), self.news), key=lambda x: x.created_date,
                       reverse=True)
 
+    def get_short_time(self):
+        return self.created_date.strftime('%d %b %H:%M')
+
     def __repr__(self):
         return f"<{self.__tablename__}>\t{self.name}\t{self.email}"

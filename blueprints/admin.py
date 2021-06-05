@@ -37,23 +37,45 @@ parser.add_argument('user_id', type=int)
 parser.add_argument('news_id', type=int)
 parser.add_argument('id', type=int)
 
-def filter_by_args(item):
-    f = {'user_id': User.user, 'news_id': News}
+
+@blueprint_admin.route('/tables/news', methods=['GET'])
+@login_required
+@admin
+def admin_news():
     args = parser.parse_args()
-    for name, cls in f.items():
-        if not args.get(name) is None:
-            print(name, args.get(name), cls.user_id)
-            item = item.filter(cls.user_id == args.get(name))
-    return item
+    db_sess = create_session()
+    news = db_sess.query(News)
+    if not args.get('user_id') is None:
+        news = news.filter(News.user_id == args.get('user_id'))
+    return render_template('admin/tables/news.html', title='news', news=news)
 
 
 @blueprint_admin.route('/tables/likes', methods=['GET'])
 @login_required
 @admin
 def admin_likes():
+    args = parser.parse_args()
     db_sess = create_session()
     likes = db_sess.query(Likes)
-    return render_template('admin/likes.html', title='likes', likes=likes)
+    if not args.get('user_id') is None:
+        likes = likes.filter(Likes.user_id == args.get('user_id'))
+    elif not args.get('news_id') is None:
+        likes = likes.filter(Likes.news_id == args.get('news_id'))
+    return render_template('admin/tables/likes.html', title='likes', likes=likes)
+
+
+@blueprint_admin.route('/tables/comments', methods=['GET'])
+@login_required
+@admin
+def admin_comments():
+    args = parser.parse_args()
+    db_sess = create_session()
+    comments = db_sess.query(Comments)
+    if not args.get('user_id') is None:
+        comments = comments.filter(Comments.user_id == args.get('user_id'))
+    elif not args.get('news_id') is None:
+        comments = comments.filter(Comments.news_id == args.get('news_id'))
+    return render_template('admin/tables/comments.html', title='comments', comments=comments)
 
 
 @blueprint_admin.route('/tables/users', methods=['GET'])
@@ -62,7 +84,7 @@ def admin_likes():
 def admin_users():
     db_sess = create_session()
     users = db_sess.query(User)
-    return render_template('admin/likes.html', title='users', likes=users)
+    return render_template('admin/tables/users.html', title='users', users=users)
 
 
 @blueprint_admin.route('/tables/likes/<int:id>', methods=['GET'])  # удаление

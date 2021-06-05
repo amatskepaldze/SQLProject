@@ -12,7 +12,7 @@
         Понравилось {{user.name}}
         {% endif %}
     </a>
-    <h3>Настройки</h3>
+    <h3>Настройки:</h3>
     {% if current_user.is_authenticated and current_user == user %}
         <a href="/user/edit" class="btn btn-primary register">
             Редактировать профиль

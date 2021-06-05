@@ -1,16 +1,15 @@
 {% extends '/patterns/base.html' %}
 
 {% block content %}
+{% include 'admin/tables/pattern.html' %}
 <table class="table">
     <thead>
     <tr>
         <th scope="col">id</th>
-        <th scope="col">name</th>
-        <th scope="col">email</th>
+        <th scope="col">user_id</th>
+        <th scope="col">news_id</th>
         <th scope="col">created_date</th>
-        <th scope="col">instrument</th>
-        <th scope="col">news</th>
-        <th scope="col">news</th>
+        <th scope="col">user</th>
         <th scope="col">news</th>
         <th scope="col">---</th>
     </tr>
@@ -23,8 +22,8 @@
         <td>{{like.user_id}}</td>
         <td>{{like.news_id}}</td>
         <td>{{like.created_date}}</td>
-        <td>{{like.user}}</td>
-        <td>{{like.news}}</td>
+        <td><a href="/user/{{like.user_id}}">user</a></td>
+        <td><a href="/news/{{like.news_id}}">news</a></td>
         <th scope="col"><a href="/admin/tables/likes/{{ like.id }}">del</a></th>
     </tr>
     {% endfor %}

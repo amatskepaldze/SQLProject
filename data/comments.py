@@ -19,6 +19,9 @@ class Comments(SqlAlchemyBase):
     user = orm.relation('User')
     news = orm.relation('News')
 
+    def short_content(self, length=60):
+        return self.comment.rjust(length, ' ')[:length]
+
     def post(self):
         self.news.reacted_count += 1
 

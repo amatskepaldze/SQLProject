@@ -1,0 +1,38 @@
+{% extends '/patterns/base.html' %}
+
+{% block content %}
+{% include 'admin/tables/pattern.html' %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">title</th>
+        <th scope="col">content</th>
+        <th scope="col">created_date</th>
+        <th scope="col">is_private</th>
+        <th scope="col">reacted_count</th>
+        <th scope="col">likes_count</th>
+        <th scope="col">user</th>
+        <th scope="col">comments</th>
+        <th scope="col">likes</th>
+        <th scope="col">---</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for new in news %}
+    <tr class="">
+        <th scope="row">{{new.id}}</th>
+        <td><a href="/news/{{new.id}}">{{new.title}}</a></td>
+        <td>{{new.short_content(15)}}</td>
+        <td>{{new.get_short_time()}}</td>
+        <td>{{new.reacted_count}}</td>
+        <td>{{new.likes_count}}</td>
+        <td><a href="/user/{{new.user_id}}">user</a></td>
+        <td><a href="/admin/tables/comments?news_id={{new.id}}">comments</a></td>
+        <td><a href="/admin/tables/likes?news_id={{new.id}}">likes</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

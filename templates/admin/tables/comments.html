@@ -1,0 +1,31 @@
+{% extends '/patterns/base.html' %}
+
+{% block content %}
+{% include 'admin/tables/pattern.html' %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">comment</th>
+        <th scope="col">is_private</th>
+        <th scope="col">created_data</th>
+        <th scope="col">user</th>
+        <th scope="col">news</th>
+        <th scope="col">---</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for comm in comments %}
+    <tr class="{% if not (comm.user or comm.news) %}table-warning{% endif %}">
+        <th scope="row">{{comm.id}}</th>
+        <td>{{comm.short_content(10)}}</td>
+        <td>{{comm.is_private}}</td>
+        <td>{{comm.get_short_time()}}</td>
+        <td><a href="/user/{{comm.user_id}}">user</a></td>
+        <td><a href="/news/{{comm.news_id}}">news</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
