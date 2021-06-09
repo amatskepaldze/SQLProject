@@ -5,6 +5,7 @@ flask_restful
 Jinja2==2.11.3
 
 requests==2.25.1
+Pillow~=8.1.0
 
 SQLAlchemy==1.4.15
 SQLAlchemy-serializer==1.3.4.4

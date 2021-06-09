@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
-import datetime
 import os
 from PIL import Image
 
-from flask import (Flask, render_template, redirect, request, abort, Blueprint, current_app, url_for, flash)
-from flask_login import (LoginManager, login_user, logout_user, login_required, current_user)
-from werkzeug.utils import secure_filename
+from flask import (render_template, redirect, request, abort, Blueprint, current_app, url_for, flash)
+from flask_login import (login_required, current_user)
 
-from data.db_session import global_init, create_session
-from data.news import News
+from data.db_session import create_session
 from data.users import User
-from data.comments import Comments
 
-from forms.user import LoginForm, RegisterForm, EditProfile, EditPasswordEmail, EditAvatar
+from forms.user import EditProfile, EditPasswordEmail, EditAvatar
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
