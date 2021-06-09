@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired
 
 
 class CommentsForm(FlaskForm):
-    comment = TextAreaField("Коментарий", validators=[DataRequired()])
+    comment = TextAreaField("Написать коментарий:", validators=[DataRequired()])
     is_private = BooleanField("Лично автору")
     submit = SubmitField('Отправить')
 

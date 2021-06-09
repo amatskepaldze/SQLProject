@@ -9,10 +9,10 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired()])
     password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
     name = StringField('Имя пользователя', validators=[DataRequired()])
-    file = FileField('Аватарка')
     about = TextAreaField("Немного о себе")
     instrument = StringField('Инструмент')
-    submit = SubmitField('Войти')
+    submit = SubmitField('Зарегистрироваться')
+
 
 class LoginForm(FlaskForm):
     email = EmailField('Почта', validators=[DataRequired()])
@@ -31,8 +31,12 @@ class EditProfile(FlaskForm):
 class EditPasswordEmail(FlaskForm):
     email = EmailField('Старая почта', validators=[DataRequired()])
     password = PasswordField('Старый пароль', validators=[DataRequired()])
-
     new_email = EmailField('Новая почта', validators=[DataRequired()])
     new_password = PasswordField('Новый пароль', validators=[DataRequired()])
     new_password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
     submit = SubmitField('Редактировать')
+
+
+class EditAvatar(FlaskForm):
+    file = FileField('Аватарка', validators=[DataRequired()])
+    submit = SubmitField('Изменить')

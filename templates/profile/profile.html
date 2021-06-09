@@ -1,11 +1,22 @@
 {% extends '/patterns/base.html' %}
 
 {% block content %}
-    <h1>Профиль</h1>
-    <h2>{{ user.name }}</h2>
-    <selector class="lead" style="font-size: 115%">{{ user.about }}</selector><br><br>
-    <selector class="lead" style="font-size: 115%"> Музыкальный инструмент: {{ user.instrument }}</selector><br><br>
-    <a href="/user/{{user.id}}/liked_news" class="btn btn-primary">
+    <div id="info" style="display: flow-root;">
+        <div class="leftimg" style="display: grid;">
+            <img src="{{ user.get_picture_path() }}" class="avatar" style="margin-left: 0">
+            {% if current_user.is_authenticated and current_user == user %}
+            <a href="/user/edit/avatar" class="btn btn-primary" style="margin-right: 7px;">
+                Изменить аватарку
+            </a>
+            {% endif %}
+        </div>
+        <div style="">
+            <h1>{{ user.name }}</h1>
+            <selector class="lead" style="font-size: 115%">{{ user.about }}</selector>
+        </div>
+        <div><br><selector class="lead"> Музыкальный инструмент: {{ user.instrument }}</selector></div><br>
+    </div>
+    <a href="/user/{{user.id}}/liked_news" class="btn btn-success">
         {% if current_user.is_authenticated and current_user == user %}
         Вам понравилось
         {% else %}

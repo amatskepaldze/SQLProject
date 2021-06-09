@@ -17,12 +17,23 @@
 
     <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 </head>
+
 <body>
+<!-- это блок анимаций: -->
+<span id="i2" class="progress2" style="position: fixed;right:4%;top:24%"><img
+        src="{{ url_for('static', filename='image/treble_clef.png') }}"></span>
+<span id="i1" class="progress1" style="position: fixed;left:4%;top:46%"><img src=""><img
+        src="{{ url_for('static', filename='image/apple_music.png') }}" height="100" width="100"/></span>
+<span id="i3" class="progress3" style="position: fixed;left:50%;top:72%"><img
+        src="{{ url_for('static', filename='image/music_plate.png') }}" height="160" width="160"/></span>
+<script src="{{ url_for('static', filename = 'scripts/animations.js') }}"></script>
+
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar">
         <button onclick="change()" class="btn" style="padding: 0;">
             <img src="{{ url_for('static', filename='image/Talent_Tinder_logo.png') }}" alt="" width="40" height="40"
-                 style="margin-right:8px">
+                 style="margin-right:8px; border-radius: 4.7px;">
         </button>
         <a class="navbar-brand" href="/">Talent_Tinder</a>
         <div class="collapse navbar-collapse" id="navbarColor02">
@@ -42,17 +53,9 @@
         {% endif %}
     </nav>
 </header>
-<!-- это блок анимаций: -->
-<span id="i2" class="progress2" style="position: fixed;right:4%;top:24%"><img
-        src="{{ url_for('static', filename='image/treble_clef.png') }}"></span>
-<span id="i1" class="progress1" style="position: fixed;left:4%;top:46%"><img src=""><img
-        src="{{ url_for('static', filename='image/apple_music.png') }}" height="100" width="100"/></span>
-<span id="i3" class="progress3" style="position: fixed;left:50%;top:72%"><img
-        src="{{ url_for('static', filename='image/music_plate.png') }}" height="160" width="160"/></span>
-<script src="{{ url_for('static', filename = 'scripts/animations.js') }}"></script>
 <!-- основной блок --->
 
-<main role="main" class="container">
+<main role="main" class="container" style="width: auto; margin-top: 12px;">
     {% block content %}{% endblock %}
 </main>
 <br>

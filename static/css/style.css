@@ -4,8 +4,6 @@
   font: inherit;
   color: inherit;
   background-color: transparent;
-  /* отображаем курсор в виде руки при наведении; некоторые
-  считают, что необходимо оставлять стрелочный вид для кнопок */
   cursor: pointer;
 }
 .hide_button:hover {
@@ -13,3 +11,69 @@
     -webkit-perspective: 1000;
     -webkit-backface-visibility: hidden;
 }
+.avatar{
+    width: 200px;
+    height: 200px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    margin: 7px;
+}
+.avatar-small{
+    width: 45px;
+    height: 45px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    margin: 7px;
+}
+.avatar-smallest{
+    width: 35px;
+    height: 35px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    margin-right: 7px;
+}
+.leftimg {
+    float:left; /* Выравнивание по левому краю */
+    margin: 7px 7px 7px 0; /* Отступы вокруг картинки */
+}
+.flash{
+    z-index: 1;
+    margin: 3%;
+    right: 0;
+    position: fixed;
+}
+
+.my_file_input .form-group{
+    padding: 1em;
+    margin: 0;
+}
+.my_file_input input[type=file]{
+    outline: 0;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+}
+.my_file_input .label{
+    width:110px;
+    height: 110px;
+    border: 2px dashed #585858;
+    border-radius:5px;
+    display: block;
+    padding:1.2em;
+    transition:border 300ms ease;
+    cursor:pointer;
+    text-align:center
+}
+.my_file_input .label i{
+    display:block;
+    font-size:42px;
+    padding-bottom:16px
+}
+.my_file_input .label i,.example-1 .label .title{
+    color:grey;
+    transition:200ms color
+}
+.my_file_input .label:hover{
+    border:2px solid #000
+}
+.my_file_input .label:hover i,.example-1 .label:hover .title{color:#000}

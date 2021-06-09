@@ -1,5 +1,8 @@
 import datetime
 import sqlalchemy
+import os
+from random import randint
+from flask import current_app
 from data.db_session import SqlAlchemyBase
 from sqlalchemy import orm
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -20,8 +23,8 @@ class User(SqlAlchemyBase, UserMixin):
     picture_path = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    created_date = sqlalchemy.Column(sqlalchemy.DateTime,
-                                     default=datetime.datetime.now)
+    created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
+    # last_read_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
     news = orm.relation("News", back_populates='user')
     comments = orm.relation('Comments', back_populates='user')
@@ -36,6 +39,18 @@ class User(SqlAlchemyBase, UserMixin):
     def get_news(self, privat=False):
         return sorted(filter(lambda x: (not x.is_private or privat), self.news), key=lambda x: x.created_date,
                       reverse=True)
+
+    def set_picture(self):
+        self.picture_path = str(randint(10000, 100000))
+
+    def get_picture_path(self):
+        name = f"{self.picture_path}.png" if self.picture_path else 'default.png'
+        return '/static/avatars/' + name
+
+    def delete_avatar(self):  # need db_sess.commit
+        if self.picture_path:
+            os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], f"{self.picture_path}.png"))
+            self.picture_path = None
 
     def get_short_time(self):
         return self.created_date.strftime('%d %b %H:%M')

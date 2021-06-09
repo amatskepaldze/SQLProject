@@ -1,6 +1,9 @@
 {% for comment in comments %}
 <div class="col-md6 border rounded" style="margin: 1.3%; padding: 10px">
-    <h4><a href="/user/{{ comment.user.id }}">{{ comment.user.name }}</a></h4>
+    <div style="display: inline-flex; align-items: center;">
+        <img src="{{ comment.user.get_picture_path() }}" class="avatar-smallest">
+        <h4 style="margin: 0; padding: 0;"><a href="/user/{{ comment.user.id }}">{{ comment.user.name }}</a></h4>
+    </div>
     <div style="font-size: 115%">
         {{ comment.comment }}
     </div>

@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 import datetime
 import os
+from PIL import Image
 
-from flask import (Flask, render_template, redirect, request, abort, Blueprint)
+from flask import (Flask, render_template, redirect, request, abort, Blueprint, current_app, url_for, flash)
 from flask_login import (LoginManager, login_user, logout_user, login_required, current_user)
+from werkzeug.utils import secure_filename
 
 from data.db_session import global_init, create_session
 from data.news import News
 from data.users import User
 from data.comments import Comments
 
-from forms.user import LoginForm, RegisterForm, EditProfile, EditPasswordEmail
+from forms.user import LoginForm, RegisterForm, EditProfile, EditPasswordEmail, EditAvatar
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 blueprint_users = Blueprint(
     'blueprint_users',
@@ -18,6 +22,27 @@ blueprint_users = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
+
+
+def crop_center(picture_path):  # Функция для обрезки изображения по центру.
+    pil_img = Image.open(os.path.join(current_app.config['UPLOAD_FOLDER'], f"{picture_path}.png"))
+    img_width, img_height = pil_img.size
+    crop = min(pil_img.size)
+    new_img = pil_img.crop(
+        ((img_width - crop) // 2, (img_height - crop) // 2, (img_width + crop) // 2, (img_height + crop) // 2))
+    new_img.save(os.path.join(current_app.config['UPLOAD_FOLDER'], f"{picture_path}.png"))
+
+
+def upload_avatar(file, user):  # db_sess.commit() after each call
+    if file and '.' in file.filename and file.filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS:
+        user.delete_avatar()
+        user.set_picture()
+        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], f"{user.picture_path}.png"))
+        crop_center(user.picture_path)
+        return True
+    if file:
+        flash('Неправильный формат файла')
+    return False
 
 
 def not_found_users(message='такого пользователя не существует'):
@@ -58,6 +83,9 @@ def edit_profile():
         user.name = form.name.data
         user.about = form.about.data
         user.instrument = form.instrument.data
+
+        # upload_avatar(file=form.file.data, user=user)
+
         db_sess.commit()
         return redirect('/user')
     form.name.data = current_user.name
@@ -65,6 +93,30 @@ def edit_profile():
     form.instrument.data = current_user.instrument
 
     return render_template('profile/edit_profile.html', form=form, title='редактирование профиля')
+
+
+@blueprint_users.route('/edit/avatar', methods=['GET', 'POST'])
+@login_required
+def edit_avatar():
+    form = EditAvatar()
+    if form.validate_on_submit():
+        print(form.file.data)
+        db_sess = create_session()
+        user = db_sess.query(User).filter(User.id == current_user.id).first()
+        upload_avatar(file=form.file.data, user=user)
+        db_sess.commit()
+        return redirect('/user')
+    return render_template('profile/edit_avatar.html', form=form, title='Изменить аватарку')
+
+
+@blueprint_users.route('/edit/avatar/delete', methods=['POST', 'GET'])
+@login_required
+def edit_avatar_delete():
+    db_sess = create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.delete_avatar()
+    db_sess.commit()
+    return redirect('/user')
 
 
 @blueprint_users.route('/redact', methods=['GET', 'POST'])

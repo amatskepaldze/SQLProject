@@ -1,0 +1,28 @@
+{% extends '/patterns/base.html' %}
+
+{% block content %}
+<h1>Изменение аватарки:</h1>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<form action="" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="my_file_input">
+        <div class="form-group">
+            <label class="label">
+                <i class="material-icons" style="padding: 0;">attach_file</i>
+                <span class="title">{{ form.file.label }}</span>
+                {{ form.file(class="form-control", type="file") }}
+            </label>
+        </div>
+        {% for error in form.file.errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endfor %}
+    </div>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {% if current_user.is_authenticated and current_user.picture_path%}
+    <a href="/user/edit/avatar/delete" class="btn btn-danger">Удалить аватарку</a>
+    {% endif %}
+    {{ message }}
+</form>
+{% endblock %}

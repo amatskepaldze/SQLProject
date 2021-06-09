@@ -1,8 +1,12 @@
 import datetime
 import os
+import sys
 
-from flask import (Flask, render_template, redirect, request, abort)
+from flask import (Flask, render_template, redirect, request, abort, current_app, send_from_directory, safe_join,
+                   url_for, flash)
 from flask_login import (LoginManager, login_user, logout_user, login_required, current_user)
+from flask_restful import reqparse
+from werkzeug.utils import secure_filename
 
 from data.db_session import global_init, create_session
 from data.news import News
@@ -17,6 +21,11 @@ app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = 'Matskepladze_Yanochkin2004!'
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['FLASK_DEBUG'] = 0
+
+UPLOAD_FOLDER = 'static/avatars/'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['MAX_CONTENT_LENGTH'] = 8 * 1024 * 1024
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -44,28 +53,20 @@ def not_found(error):
     return render_template('nothing.html')
 
 
+parser = reqparse.RequestParser()
+parser.add_argument('reverse', type=bool)
+
+
 @app.route("/")
 def index():
+    args = parser.parse_args()
     db_sess = create_session()
-    if request.args.get('my') and current_user.is_authenticated:
-        news = db_sess.query(News).filter((News.user_id == current_user.id))
-    elif current_user.is_authenticated:
+    if current_user.is_authenticated:
         news = db_sess.query(News).filter((News.user == current_user) | (News.is_private != True))
     else:
         news = db_sess.query(News).filter(News.is_private != True)
-    news = sorted(news, key=lambda x: x.created_date, reverse=True)
+    news = sorted(news, key=lambda x: x.created_date, reverse=not bool(args.reverse))
     return render_template("index.html", news=news, title='Новости')
-
-
-@app.route('/messages')
-@login_required
-def messages():
-    db_sess = create_session()
-    if current_user.is_authenticated:
-        ns = db_sess.query(News).filter((News.user == current_user) | (News.is_private != True))
-    else:
-        ns = db_sess.query(News).filter(News.is_private != True)
-    return render_template("messages.html", news=ns, title='messages')
 
 
 @app.route('/about_us')
@@ -113,8 +114,7 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
-        return render_template('login.html',
-                               message="Неправильный логин или пароль",
+        return render_template('login.html', message="Неправильный логин или пароль",
                                form=form, title='Авторизация')
     return render_template('login.html', title='Авторизация', form=form)
 
@@ -128,6 +128,5 @@ def logout():
 
 if __name__ == '__main__':
     global_init("db/blogs.db")
-
     port = int(os.environ.get("PORT", 8080))
     app.run(port=port)  # host='0.0.0.0'

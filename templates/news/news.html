@@ -6,11 +6,14 @@
     {{ item.content }}
 </selector>
 <div style="display: flex; align-items: center;">
-    Автор - <a href="/user/{{ item.user.id }}">{{ item.user.name }}</a>, Дата написания - {{ item.created_date }}
+
+    <img src="{{ item.user.get_picture_path() }}" class="avatar-small">
+    <div>
+        <a href="/user/{{ item.user.id }}">{{ item.user.name}}</a><br>
+        {{ item.get_short_time()}}
+    </div>
+
     <div style="margin-left: auto;">
-
-        <strong>Комментариев {{ item.reacted_count }}</strong>
-
         {% if current_user.is_authenticated and current_user == item.user %}
         <strong>Понравилось {{ item.likes_count }}</strong>
         <a href="/news/edit/{{ item.id }}" class="btn btn-primary register">
@@ -28,9 +31,8 @@
         </button>
         {% endif %}
     </div>
-
 </div>
-
+<strong>Комментариев {{ item.reacted_count }}</strong>
 {% if current_user.is_authenticated %}
 <form action="" method="post">
     {{ form.hidden_tag() }}
