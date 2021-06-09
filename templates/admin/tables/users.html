@@ -12,6 +12,7 @@
         <th scope="col">news</th>
         <th scope="col">comms</th>
         <th scope="col">likes</th>
+        <th scope="col">Picture</th>
         <th scope="col">---</th>
     </tr>
     </thead>
@@ -26,6 +27,7 @@
         <td><a href="/admin/tables/news?user_id={{user.id}}">news</a></td>
         <td><a href="/admin/tables/comments?user_id={{user.id}}">comments</a></td>
         <td><a href="/admin/tables/likes?user_id={{user.id}}">likes</a></td>
+        <td>{{user.picture_path}}</td>
     </tr>
     {% endfor %}
     </tbody>
