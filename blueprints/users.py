@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
+
 from PIL import Image
 
 from flask import (render_template, redirect, request, abort, Blueprint, current_app, url_for, flash)
@@ -33,11 +35,10 @@ def upload_avatar(file, user):  # db_sess.commit() after each call
     if file and '.' in file.filename and file.filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS:
         user.delete_avatar()
         user.set_picture()
-        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], f"{user.picture_path}.png"))
+        path = os.path.join(current_app.config['UPLOAD_FOLDER'], f"{user.picture_path}.png")
+        file.save(path)
         crop_center(user.picture_path)
         return True
-    if file:
-        flash('Неправильный формат файла')
     return False
 
 
@@ -96,7 +97,6 @@ def edit_profile():
 def edit_avatar():
     form = EditAvatar()
     if form.validate_on_submit():
-        print(form.file.data)
         db_sess = create_session()
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         upload_avatar(file=form.file.data, user=user)

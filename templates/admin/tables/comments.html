@@ -24,6 +24,7 @@
         <td>{{comm.get_short_time()}}</td>
         <td><a href="/user/{{comm.user_id}}">user</a></td>
         <td><a href="/news/{{comm.news_id}}">news</a></td>
+        <th scope="col"><a href="/admin/tables/comments/delete/{{comm.id}}">del</a></th>
     </tr>
     {% endfor %}
     </tbody>

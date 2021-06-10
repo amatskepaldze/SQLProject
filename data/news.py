@@ -35,5 +35,11 @@ class News(SqlAlchemyBase):
     def get_short_time(self):
         return self.created_date.strftime('%d %b %H:%M')
 
+    def delete(self, db_sess):
+        for comment in self.comments:
+            db_sess.delete(comment)
+        for like in self.likes:
+            db_sess.delete(like)
+
     def __repr__(self):
         return f"<{self.__tablename__}>[{self.user}]\t{self.title}\t({self.created_date})\tpriv:{self.is_private}"

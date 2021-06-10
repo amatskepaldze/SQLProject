@@ -6,13 +6,13 @@
     <thead>
     <tr>
         <th scope="col">id</th>
+        <th scope="col">img</th>
         <th scope="col">name</th>
         <th scope="col">email</th>
         <th scope="col">created_date</th>
         <th scope="col">news</th>
         <th scope="col">comms</th>
         <th scope="col">likes</th>
-        <th scope="col">Picture</th>
         <th scope="col">---</th>
     </tr>
     </thead>
@@ -21,13 +21,14 @@
     {% for user in users %}
     <tr class="">
         <th scope="row">{{user.id}}</th>
+        <th><img src="{{ user.get_picture_path() }}" class="avatar-smallest"></th>
         <td><a href="/user/{{user.id}}">{{user.name}}</a></td>
         <td>{{user.email}}</td>
         <td>{{user.get_short_time()}}</td>
         <td><a href="/admin/tables/news?user_id={{user.id}}">news</a></td>
         <td><a href="/admin/tables/comments?user_id={{user.id}}">comments</a></td>
         <td><a href="/admin/tables/likes?user_id={{user.id}}">likes</a></td>
-        <td>{{user.picture_path}}</td>
+        <th scope="col"><a href="/admin/tables/users/delete_avatar/{{user.id}}">del_avatar</a></th>
     </tr>
     {% endfor %}
     </tbody>

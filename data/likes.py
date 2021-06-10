@@ -19,7 +19,7 @@ class Likes(SqlAlchemyBase):
     def post(self):
         self.news.likes_count += 1
 
-    def delete(self):
+    def delete(self, db_sess=None):
         self.news.likes_count -= 1
 
     def get_short_time(self):

@@ -32,6 +32,7 @@
         <td><a href="/user/{{new.user_id}}">user</a></td>
         <td><a href="/admin/tables/comments?news_id={{new.id}}">comments</a></td>
         <td><a href="/admin/tables/likes?news_id={{new.id}}">likes</a></td>
+        <th scope="col"><a href="/admin/tables/news/delete/{{new.id}}">del</a></th>
     </tr>
     {% endfor %}
     </tbody>

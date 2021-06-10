@@ -87,18 +87,35 @@ def admin_users():
     return render_template('admin/tables/users.html', title='users', users=users)
 
 
-@blueprint_admin.route('/tables/likes/<int:id>', methods=['GET'])  # удаление
+@blueprint_admin.route('/tables/<string:inst>/delete/<int:id>', methods=['GET'])  # удаление
 @login_required
 @admin
-def rm_like(id):
+def rm_obj(inst, id):
     db_sess = create_session()
-    like = db_sess.query(Likes).filter(Likes.id == id).first()
-    if like:
+    class_obj = {'likes': Likes, 'comments': Comments, 'news': News}.get(inst)
+    obj = db_sess.query(class_obj).filter(class_obj.id == id).first()
+    if obj:
         try:
-            like.delete()
+            obj.delete(db_sess)
         except:
-            print(like)
-        db_sess.delete(like)
+            print(obj)
+        db_sess.delete(obj)
         db_sess.commit()
-        return redirect('/admin/tables/likes')
+        return redirect(f'/admin/tables/{inst}')
+    return 'not found'
+
+
+@blueprint_admin.route('/tables/users/delete_avatar/<int:id>', methods=['GET'])  # удаление
+@login_required
+@admin
+def rm_avatar(id):
+    db_sess = create_session()
+    user = db_sess.query(User).filter(User.id == id).first()
+    if user:
+        try:
+            user.delete_avatar()
+        except:
+            return f'cannot {id}'
+        db_sess.commit()
+        return redirect(f'/admin/tables/users')
     return 'not found'

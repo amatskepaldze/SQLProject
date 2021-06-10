@@ -25,7 +25,7 @@ class Comments(SqlAlchemyBase):
     def post(self):
         self.news.reacted_count += 1
 
-    def delete(self):
+    def delete(self, db_sess=None):
         self.news.reacted_count -= 1
 
     def get_short_time(self):

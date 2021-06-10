@@ -49,7 +49,10 @@ class User(SqlAlchemyBase, UserMixin):
 
     def delete_avatar(self):  # need db_sess.commit
         if self.picture_path:
-            os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], f"{self.picture_path}.png"))
+            try:
+                os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], f"{self.picture_path}.png"))
+            except:
+                pass
             self.picture_path = None
 
     def get_short_time(self):

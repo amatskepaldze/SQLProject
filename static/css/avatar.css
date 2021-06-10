@@ -1,0 +1,21 @@
+.avatar{
+    width: 200px;
+    height: 200px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    margin: 7px;
+}
+.avatar-small{
+    width: 45px;
+    height: 45px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    margin: 7px;
+}
+.avatar-smallest{
+    width: 35px;
+    height: 35px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    margin-right: 7px;
+}
