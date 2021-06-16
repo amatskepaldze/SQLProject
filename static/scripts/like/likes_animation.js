@@ -27,5 +27,4 @@ document.querySelectorAll('.like_button').forEach(button => {
             b.innerText=Number(b.innerText) - 1;
     }
   })
-
 });

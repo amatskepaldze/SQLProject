@@ -30,8 +30,8 @@
   transition: color 0.2s linear;
   outline:none;
 }
-.btn:focus {
-  outline: none;
+.like_button:focus {
+    outline: none;
 }
 
 
